@@ -1,21 +1,19 @@
 package com.chen.gym.controller.user;
 
-import com.chen.gym.bean.User;
-import com.chen.gym.security.JWTToken;
-import com.chen.gym.security.JWTUtil;
+
 import com.chen.gym.service.user.UserService;
 import com.chen.gym.util.JsonResult;
-import com.chen.gym.util.MD5Util;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,8 +25,11 @@ import java.util.Map;
 @RestController
 @CrossOrigin
 public class LoginController {
+
+    private static final Logger PLOG = LoggerFactory.getLogger(LoginController.class);
+
     @Resource
-    UserService userService;
+    private  UserService userService;
 
 
     @ApiOperation(value = "用户登录")
@@ -46,7 +47,7 @@ public class LoginController {
 
     }
 
-    @ApiOperation(value = "用户退出")
+    @ApiOperation(value = "用户退出",notes = "需要token")
     @GetMapping("logout")
     public JsonResult logout() {
         Subject subject = SecurityUtils.getSubject();

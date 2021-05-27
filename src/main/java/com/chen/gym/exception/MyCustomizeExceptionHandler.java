@@ -1,5 +1,6 @@
 package com.chen.gym.exception;
 
+import com.chen.gym.security.CustomRealm;
 import com.chen.gym.util.JsonResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
@@ -10,7 +11,6 @@ import org.springframework.web.multipart.MultipartException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
-import java.util.List;
 
 /**
  * @author CHEN
@@ -19,11 +19,15 @@ import java.util.List;
 //@RestControllerAdvice
 public class MyCustomizeExceptionHandler {
 
-    @ExceptionHandler(CustomizeAuthenticationException.class)
-    public JsonResult CustomizeAuthenticationException(CustomizeAuthenticationException ex) {
+    @ExceptionHandler(CustomRealm.CustomizeAuthenticationException.class)
+    public JsonResult CustomizeAuthenticationException(CustomRealm.CustomizeAuthenticationException ex) {
         return JsonResult.errorOf(ex.getCode(), ex.getMessage());
     }
 
+    @ExceptionHandler(CustomizeRuntimeException.class)
+    public JsonResult CustomizeRuntimeException(CustomizeRuntimeException ex) {
+        return JsonResult.errorOf(ex.getCode(), ex.getMessage());
+    }
 
     @ExceptionHandler(MultipartException.class)
     public JsonResult handleMultipartException() {
@@ -34,10 +38,6 @@ public class MyCustomizeExceptionHandler {
     public JsonResult handleCustomizeException(HttpServletRequest request, Throwable ex) {
         //获取错误状态码
         HttpStatus status = getStatus(request);
-        if (ex instanceof CustomizeRuntimeException) {
-            CustomizeRuntimeException customizeException = (CustomizeRuntimeException) ex;
-            return JsonResult.errorOf(customizeException.getCode(), customizeException.getMessage());
-        }
         if (status.is5xxServerError() || ex instanceof ParseException) {
             return JsonResult.errorOf(MyCustomizeErrorCode.INTERNAL_SERVER_ERROR);
         }

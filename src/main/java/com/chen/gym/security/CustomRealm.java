@@ -2,8 +2,10 @@ package com.chen.gym.security;
 
 import com.chen.gym.bean.User;
 import com.chen.gym.dao.user.UserDao;
-import com.chen.gym.exception.CustomizeAuthenticationException;
+import com.chen.gym.exception.CustomizeErrorCode;
+import com.chen.gym.exception.CustomizeRuntimeException;
 import com.chen.gym.exception.MyCustomizeErrorCode;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
@@ -27,7 +29,7 @@ import javax.annotation.Resource;
 public class CustomRealm extends AuthorizingRealm {
 
     @Resource
-    UserDao userDao;
+    private UserDao userDao;
 
     private static final Logger PLOG = LoggerFactory.getLogger(CustomRealm.class);
 
@@ -89,6 +91,25 @@ public class CustomRealm extends AuthorizingRealm {
             info.addRole(role);
         }
         return info;
+    }
+
+    /**
+     * shiro中抛出异常必需继承AuthenticationException
+     */
+    public static class CustomizeAuthenticationException extends AuthenticationException {
+        private Integer code;
+        private String message;
+
+        public CustomizeAuthenticationException(CustomizeErrorCode customizeErrorCode) {
+            this.code = customizeErrorCode.getCode();
+            this.message = customizeErrorCode.getMessage();
+        }
+        public Integer getCode() {
+            return code;
+        }
+        public String getMessage() {
+            return message;
+        }
     }
 
 }

@@ -15,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebMvcConfig implements WebMvcConfigurer {
     //图片存储路径,即所有图片存放根目录,可在配置文件修改
     @Value("${static.file}")
-    String fileUrl;
+    private String fileUrl;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

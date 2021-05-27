@@ -1,5 +1,7 @@
 package com.chen.gym.bean;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 /**
@@ -11,24 +13,49 @@ public class Contest {
     private Long cid;
     private String name;
     private String organizers;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date openTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
     private String object;
     private String tele;
     private Long place;
     private Long equipment;
+    //1:刚创建，未复核
+    //2:管理员复核
+    private int target;
+
 
     @Override
     public String toString() {
         return "Contest{" +
-                "cId=" + cid +
+                "cid=" + cid +
                 ", name='" + name + '\'' +
                 ", organizers='" + organizers + '\'' +
+                ", openTime=" + openTime +
                 ", date=" + date +
                 ", object='" + object + '\'' +
                 ", tele='" + tele + '\'' +
                 ", place=" + place +
                 ", equipment=" + equipment +
+                ", target=" + target +
                 '}';
+    }
+
+    public Date getOpenTime() {
+        return openTime;
+    }
+
+    public void setOpenTime(Date openTime) {
+        this.openTime = openTime;
+    }
+
+    public int getTarget() {
+        return target;
+    }
+
+    public void setTarget(int target) {
+        this.target = target;
     }
 
     public Long getCid() {
