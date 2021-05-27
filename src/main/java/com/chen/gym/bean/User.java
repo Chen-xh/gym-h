@@ -19,6 +19,8 @@ public class User implements Serializable {
     @JsonIgnore
     private String password;
 
+
+
     @Override
     public String toString() {
         return "User{" +

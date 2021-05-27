@@ -40,4 +40,28 @@ public class JsonResult implements Serializable {
         this.code = code;
         this.message = message;
     }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Map<String, Object> getExtended() {
+        return extended;
+    }
+
+    public void setExtended(Map<String, Object> extended) {
+        this.extended = extended;
+    }
 }

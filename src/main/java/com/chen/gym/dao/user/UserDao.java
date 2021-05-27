@@ -25,6 +25,5 @@ public interface UserDao {
     @Select("SELECT target from user_role u left outer join role r on(u.rid=r.rid) where u.uid=#{uid}")
     List<String> getUserRole(Long uid);
 
-    @Select("SELECT roleName from user_role u left outer join role r on(u.rid=r.rid) where u.uid=#{uid}")
-    List<String> getUserRoleName(Long uid);
+
 }
