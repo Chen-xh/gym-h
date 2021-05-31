@@ -22,6 +22,7 @@ import java.util.Map;
  * @date 2021/5/26
  */
 @Api(tags = "赛事管理接口")
+@RequestMapping("/conttest/")
 @RestController
 @CrossOrigin
 public class ContestController {

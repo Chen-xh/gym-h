@@ -26,6 +26,10 @@ public enum MyCustomizeErrorCode implements CustomizeErrorCode {
      * 3003:密码错误!
      */
     PASS_NOT_CORRECT(3003,"密码错误!"),
+    /**
+     * 3004:两次密码不同!
+     */
+    CHECK_PASSWORD_NO(3004,"两次密码不同!"),
 
     /**
      * 3007:文件大小超出限制！

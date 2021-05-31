@@ -43,7 +43,7 @@ public class ContestServiceImpl implements ContestService {
                 f.setAccessible(true);
                 if (f.get(contest) != null) {
 //                    System.out.println("属性名:" + f.getName() + " 属性值:" + f.get(contest));
-                    if (f.getName().equals("date")||f.getName().equals("openTime")) {
+                    if (f.getName().equals("date") || f.getName().equals("openTime")) {
 //                       时间要具体处理。。
                     } else {
                         sql.append(" and ").append(f.getName()).append(" like '%").append(f.get(contest)).append("%'");
@@ -54,7 +54,7 @@ public class ContestServiceImpl implements ContestService {
             e.printStackTrace();
         }
 
-        PLOG.info("Select >> "+sql.toString());
+        PLOG.info("Select >> " + sql.toString());
         return contestDao.select(sql.toString());
     }
 
@@ -68,25 +68,25 @@ public class ContestServiceImpl implements ContestService {
     }
 
     @Override
-    public void arrayEquipment(Long id,Long eid) {
+    public void arrayEquipment(Long id, Long eid) {
         Contest contest = contestDao.findContestById(id);
         if (contest == null) {
             throw new CustomizeRuntimeException(MyCustomizeErrorCode.NOT_FOND_Contest);
         }
-        contestDao.updateEquipment(eid,id);
+        contestDao.updateEquipment(eid, id);
         //重置为未复核
-        contestDao.updateTarget(1,id);
+        contestDao.updateTarget(1, id);
     }
 
     @Override
-    public void arrayField(Long id,Long fid) {
+    public void arrayField(Long id, Long fid) {
         Contest contest = contestDao.findContestById(id);
         if (contest == null) {
             throw new CustomizeRuntimeException(MyCustomizeErrorCode.NOT_FOND_Contest);
         }
-        contestDao.updatePlace(fid,id);
+        contestDao.updatePlace(fid, id);
         //重置为未复核
-        contestDao.updateTarget(1,id);
+        contestDao.updateTarget(1, id);
     }
 
     @Override
@@ -111,9 +111,17 @@ public class ContestServiceImpl implements ContestService {
             throw new CustomizeRuntimeException(MyCustomizeErrorCode.NOT_FOND_Contest);
         }
         //重置为未复核
-        contest.setTarget(1);
-        contest.setDate(new Date());
-        contestDao.update(contest);
+        item.setTarget(1);
+        item.setDate(new Date());
+        item.setEquipment(contest.getEquipment());
+        item.setName(contest.getName());
+        item.setPlace(contest.getPlace());
+        item.setObject(contest.getObject());
+        item.setOpenTime(contest.getOpenTime());
+        item.setOrganizers(contest.getOrganizers());
+        item.setTele(contest.getTele());
+
+        contestDao.update(item);
     }
 
     @Override
@@ -122,6 +130,6 @@ public class ContestServiceImpl implements ContestService {
         if (item == null) {
             throw new CustomizeRuntimeException(MyCustomizeErrorCode.NOT_FOND_Contest);
         }
-        contestDao.updateTarget(2,cid);
+        contestDao.updateTarget(2, cid);
     }
 }

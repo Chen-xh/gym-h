@@ -18,9 +18,10 @@ public interface ContestDao {
     @Select("SELECT * FROM `contest` WHERE cid=#{id}")
     Contest findContestById(Long id);
 
-    @Insert("insert into `contest` " +
-            "name=#{name} ,organizers= #{organizers} , openTime=#{openTime}, date=#{date} ,object=#{object} , tele=#{tele} , " +
-            "place=#{place} , equipment=#{equipment}, target=1")
+    @Insert("insert into contest(name,organizers,openTime , date, object, tele,place , equipment,target) " +
+            "values(#{name} ,#{organizers} ,#{openTime}, " +
+            "#{date} ,#{object} , #{tele} , " +
+            "#{place} , #{equipment}, 1)")
     void add(Contest contest);
 
     @Delete("DELETE FROM `contest` WHERE cid=#{id}")
@@ -28,7 +29,7 @@ public interface ContestDao {
 
     @Update("UPDATE `contest` SET " +
             "name=#{name} ,organizers= #{organizers} , openTime=#{openTime} , date=#{date} ,object=#{object} , tele=#{tele} , " +
-            "place=#{place} , equipment=#{equipment} , target={target}" +
+            "place=#{place} , equipment=#{equipment} , target=#{target} " +
             "WHERE cid=#{cid}")
     void update(Contest contest);
 
