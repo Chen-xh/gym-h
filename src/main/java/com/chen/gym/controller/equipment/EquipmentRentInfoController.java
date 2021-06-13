@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.List;
 
+/**
+ * @author Jinbert
+ * @date 2021/6/13
+ */
 @Api(tags = "器材管理接口")
 @RequestMapping("/equipmentRentInfo/")
 @RestController
