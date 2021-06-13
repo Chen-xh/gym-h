@@ -15,6 +15,11 @@ public enum MyCustomizeErrorCode implements CustomizeErrorCode {
     NOT_FOND_Contest(2002,"没有找到赛事!"),
 
     /**
+     * 2003:没有找到器材!
+     */
+    NOT_FOND_Equipment(2003,"没有找到器材!"),
+
+    /**
      * 3001:尚未登录!
      */
     NOT_LOGIN(3001,"尚未登录!"),
