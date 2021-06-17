@@ -122,9 +122,8 @@ public class UserServiceImpl implements UserService {
 
         userDao.add(user);
         Long uid=user.getUserId();
-        System.out.println(uid);
         //默认普通用户
-        if(uid>0)  roleDao.addRoleRelative(uid,2L);
+         roleDao.addRoleRelative(uid,2L);
     }
 
     @Override
@@ -162,6 +161,6 @@ public class UserServiceImpl implements UserService {
         if (item == null) {
             throw new CustomizeRuntimeException(MyCustomizeErrorCode.NOT_FOND_USER);
         }
-        roleDao.addRoleRelative(uid,rid);
+        roleDao.updateRoleRelative(uid,rid);
     }
 }
