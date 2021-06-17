@@ -1,6 +1,7 @@
 package com.chen.gym.service.equipment;
 
 import com.chen.gym.bean.Equipment;
+import com.chen.gym.bean.EquipmentKind;
 
 import java.util.List;
 
@@ -31,4 +32,9 @@ public interface EquipmentService {
      * 修改
      */
     void update(Equipment equipment);
+
+    /**
+     * 获取所有器材类型
+     */
+    List<EquipmentKind> getAllKind();
 }

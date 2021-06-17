@@ -1,6 +1,7 @@
 package com.chen.gym.dao.equipment;
 
 import com.chen.gym.bean.Equipment;
+import com.chen.gym.bean.EquipmentKind;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -14,8 +15,8 @@ public interface EquipmentDao {
     @Select("SELECT * FROM `equipment` WHERE id=#{id}")
     Equipment findEquipmentByID(Long id);
 
-    @Insert("insert into equipment(toolName,toolKind,allNum , damageNum, rentNum, totalNum,rendStandard , editTime,userId) " +
-            "values(#{toolName} ,#{toolKind} ,#{allNum}, " +
+    @Insert("insert into equipment(toolKind,allNum , damageNum, rentNum, totalNum,rendStandard , editTime,userId) " +
+            "values(#{toolKind} ,#{allNum}, " +
             "#{damageNum} ,#{rentNum} , #{totalNum} , " +
             "#{rendStandard} , #{editTime}, #{userId})")
     void addEquipment(Equipment equipment);
@@ -24,7 +25,7 @@ public interface EquipmentDao {
     void deleteEquipment(Long id);
 
     @Update("UPDATE `equipment` SET " +
-            "toolName=#{toolName} ,toolKind= #{toolKind} , allNum=#{allNum} , damageNum=#{damageNum} ,rentNum=#{rentNum} , totalNum=#{totalNum} , " +
+            "toolKind= #{toolKind} , allNum=#{allNum} , damageNum=#{damageNum} ,rentNum=#{rentNum} , totalNum=#{totalNum} , " +
             "rendStandard=#{rendStandard} , editTime=#{editTime} , userId=#{userId} " +
             "WHERE id=#{id}")
     void updateEquipment(Equipment equipment);
@@ -39,4 +40,7 @@ public interface EquipmentDao {
             return sql;
         }
     }
+
+    @Select("select * from equipmentKind")
+    List<EquipmentKind> getAllKind();
 }

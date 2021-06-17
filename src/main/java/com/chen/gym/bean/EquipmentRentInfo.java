@@ -5,7 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 public class EquipmentRentInfo {
-    private int id;
+    private Long id;
     private String toolName;
     private int rentNum;
     @DateTimeFormat(pattern = "yyyy-MM-dd-hh-mm")
@@ -42,11 +42,11 @@ public class EquipmentRentInfo {
     private int brokenNum;
     private double totalMoney;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
