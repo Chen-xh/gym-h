@@ -1,6 +1,7 @@
 package com.chen.gym.service.equipment.impl;
 
 import com.chen.gym.bean.Equipment;
+import com.chen.gym.bean.EquipmentKind;
 import com.chen.gym.dao.equipment.EquipmentDao;
 import com.chen.gym.exception.CustomizeRuntimeException;
 import com.chen.gym.exception.MyCustomizeErrorCode;
@@ -13,6 +14,7 @@ import javax.annotation.Resource;
 import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.List;
+
 @Service
 public class EquipmentServiceImpl implements EquipmentService {
     @Resource
@@ -27,7 +29,7 @@ public class EquipmentServiceImpl implements EquipmentService {
 
     @Override
     public List<Equipment> select(Equipment equipment) {
-        StringBuilder sql = new StringBuilder("SELECT * FROM contest where 1=1 ");
+        StringBuilder sql = new StringBuilder("SELECT * FROM equipment where 1=1 ");
         try {
             //通过反射遍历对象中的属性
             Class cls = equipment.getClass();
@@ -83,16 +85,21 @@ public class EquipmentServiceImpl implements EquipmentService {
             throw new CustomizeRuntimeException(MyCustomizeErrorCode.NOT_FOND_Equipment);
         }
 
+        item.setId(equipment.getId());
         item.setEditTime(new Date());
         item.setAllNum(equipment.getAllNum());
         item.setDamageNum(equipment.getDamageNum());
         item.setRendStandard(equipment.getRendStandard());
         item.setRentNum(equipment.getRentNum());
         item.setToolKind(equipment.getToolKind());
-        item.setToolName(equipment.getToolName());
         item.setTotalNum(equipment.getTotalNum());
         item.setUserId(equipment.getUserId());
 
         equipmentDao.updateEquipment(item);
+    }
+
+    @Override
+    public List<EquipmentKind> getAllKind() {
+        return equipmentDao.getAllKind();
     }
 }

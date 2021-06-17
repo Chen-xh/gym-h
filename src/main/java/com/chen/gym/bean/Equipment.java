@@ -6,7 +6,6 @@ import java.util.Date;
 
 public class Equipment {
     private Long id;
-    private String toolName;
     private String toolKind;
     private int allNum;
     private int damageNum;
@@ -23,14 +22,6 @@ public class Equipment {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getToolName() {
-        return toolName;
-    }
-
-    public void setToolName(String toolName) {
-        this.toolName = toolName;
     }
 
     public String getToolKind() {
@@ -101,7 +92,6 @@ public class Equipment {
     public String toString() {
         return "Tool{" +
                 "id=" + id +
-                ", toolName='" + toolName + '\'' +
                 ", toolKind='" + toolKind + '\'' +
                 ", allNum=" + allNum +
                 ", damageNum=" + damageNum +

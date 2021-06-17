@@ -20,6 +20,21 @@ public enum MyCustomizeErrorCode implements CustomizeErrorCode {
     NOT_FOND_Equipment(2003,"没有找到器材!"),
 
     /**
+     * 2004:没有找到器材租界消息!
+     */
+    NOT_FOND_EquipmentRentInfo(2004,"没有找到器材租借信息!"),
+
+    /**
+     * 2005:没有找到场地!
+     */
+    NOT_FOND_Field(2005,"没有找到场地!"),
+
+    /**
+     * 2005:没有找到场地使用信息!
+     */
+    NOT_FOND_FieldUseInfo(2006,"没有找到场地使用信息!"),
+
+    /**
      * 3001:尚未登录!
      */
     NOT_LOGIN(3001,"尚未登录!"),

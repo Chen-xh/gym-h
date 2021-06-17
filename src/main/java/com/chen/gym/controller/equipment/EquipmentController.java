@@ -49,7 +49,7 @@ public class EquipmentController {
         Equipment equipment = equipmentService.findEquipmentById(id);
 
         return JsonResult.success()
-                .addObject("contest", equipment);
+                .addObject("Equipment", equipment);
 
     }
 
@@ -85,6 +85,14 @@ public class EquipmentController {
     public JsonResult update(Equipment equipment) {
         equipmentService.update(equipment);
 
+        return JsonResult.success();
+
+    }
+
+    @ApiOperation(value = "获取所有器材类型")
+    @PostMapping("getAllKind")
+    public JsonResult getAllKind() {
+        equipmentService.getAllKind();
         return JsonResult.success();
 
     }

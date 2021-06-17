@@ -44,7 +44,7 @@ public class EquipmentRentInfoController {
         EquipmentRentInfo equipment = equipmentRentInfoService.findRentInfoById(id);
 
         return JsonResult.success()
-                .addObject("contest", equipment);
+                .addObject("EquipmentRentInfo", equipment);
 
     }
 
