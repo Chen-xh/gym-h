@@ -2,9 +2,11 @@ package com.chen.gym.service.equipment.impl;
 
 import com.chen.gym.bean.EquipmentRentInfo;
 import com.chen.gym.service.equipment.EquipmentRentInfoService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class EquipmentRentInfoServiceImpl implements EquipmentRentInfoService {
     @Override
     public List<EquipmentRentInfo> findAll() {

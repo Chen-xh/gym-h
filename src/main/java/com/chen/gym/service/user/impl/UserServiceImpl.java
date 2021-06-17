@@ -1,14 +1,12 @@
 package com.chen.gym.service.user.impl;
 
 
-import com.chen.gym.bean.Contest;
 import com.chen.gym.bean.Role;
 import com.chen.gym.bean.User;
 import com.chen.gym.dao.user.RoleDao;
 import com.chen.gym.dao.user.UserDao;
 import com.chen.gym.exception.CustomizeRuntimeException;
 import com.chen.gym.exception.MyCustomizeErrorCode;
-import com.chen.gym.security.CustomRealm;
 import com.chen.gym.security.JWTToken;
 import com.chen.gym.security.JWTUtil;
 import com.chen.gym.service.user.UserService;
@@ -70,6 +68,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findAll() {
+        List<User> list=userDao.findAllUser();
+
         return userDao.findAllUser();
     }
 
@@ -152,7 +152,7 @@ public class UserServiceImpl implements UserService {
         item.setMail(user.getMail());
         item.setName(user.getName());
         item.setTele(user.getTele());
-        item.setUsername(user.getUsername());
+        item.setSno(user.getSno());
         userDao.update(item);
     }
 

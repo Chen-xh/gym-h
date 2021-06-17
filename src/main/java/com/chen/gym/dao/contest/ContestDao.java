@@ -17,7 +17,8 @@ public interface ContestDao {
 
     @Select("SELECT * FROM `contest` WHERE cid=#{id}")
     Contest findContestById(Long id);
-
+    @Select("SELECT * FROM `contest` WHERE target=#{target}")
+    List<Contest> findByTarget(Integer target);
     @Insert("insert into contest(name,organizers,openTime , date, object, tele,place , equipment,target) " +
             "values(#{name} ,#{organizers} ,#{openTime}, " +
             "#{date} ,#{object} , #{tele} , " +

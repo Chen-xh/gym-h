@@ -1,5 +1,6 @@
 package com.chen.gym.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -7,34 +8,39 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.io.Serializable;
 import java.util.Date;
 
+import static com.alibaba.druid.util.FnvHash.Constants.DATE_FORMAT;
+
 /**
  * @author: CHEN
  * @date: 2020-12-09 09:30
- * 用户账号
+ * 用户信息
  **/
 public class User implements Serializable {
 
     private Long userId;
 
-    //使用学号或教工号
-    private String username;
+    //学号用作username
+    private String sno;
 
     @JsonIgnore
     private String password;
 
     private String name;
     private String idCard;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd" )
+//    @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+9")
     private Date birthday;
     private String tele;
     private String mail;
     private String address;
 
+    private Long rid;
+
     @Override
     public String toString() {
         return "User{" +
                 "userId=" + userId +
-                ", username='" + username + '\'' +
+                ", sno='" + sno + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", idCard='" + idCard + '\'' +
@@ -43,6 +49,14 @@ public class User implements Serializable {
                 ", mail='" + mail + '\'' +
                 ", address='" + address + '\'' +
                 '}';
+    }
+
+    public Long getRid() {
+        return rid;
+    }
+
+    public void setRid(Long rid) {
+        this.rid = rid;
     }
 
     public String getName() {
@@ -101,12 +115,12 @@ public class User implements Serializable {
         this.userId = userId;
     }
 
-    public String getUsername() {
-        return username;
+    public String getSno() {
+        return sno;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setSno(String sno) {
+        this.sno = sno;
     }
 
     public String getPassword() {

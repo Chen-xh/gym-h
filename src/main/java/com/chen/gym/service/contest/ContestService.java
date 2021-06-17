@@ -14,6 +14,10 @@ public interface ContestService {
      */
     List<Contest> findAll();
     /**
+     * 根据target查询所有
+     */
+    List<Contest> findByTarget(Integer target);
+    /**
      * 多条件查询
      */
     List<Contest> select(Contest contest);

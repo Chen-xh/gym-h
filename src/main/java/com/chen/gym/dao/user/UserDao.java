@@ -14,21 +14,21 @@ import java.util.List;
 @Mapper
 public interface UserDao {
 
-    @Select("select * from user")
+    @Select("select * from user_role u left outer join user r on(u.uid=r.userId)")
     List<User> findAllUser();
 
-    @Select("SELECT * FROM `user` WHERE userId=#{id}")
+    @Select("SELECT * from user_role u left outer join user r on(u.uid=r.userId)  WHERE userId=#{id}")
     User findUserById(Long id);
 
-    @Select("SELECT * FROM `user` WHERE username=#{username}")
-    User findUserByUsername(String username);
+    @Select("SELECT * FROM `user` WHERE sno=#{sno}")
+    User findUserByUsername(String sno);
 
     @Select("SELECT target from user_role u left outer join role r on(u.rid=r.rid) where u.uid=#{uid}")
     List<String> getUserRole(Long uid);
 
 
-    @Insert("insert into user(username,password,name,tele,mail,address,idCard,birthday) " +
-            "values(#{username} , #{password} , " +
+    @Insert("insert into user(sno,password,name,tele,mail,address,idCard,birthday) " +
+            "values(#{sno} , #{password} , " +
             "#{name}, #{tele}  , " +
             "#{mail} , #{address},#{idCard},#{birthday})")
     @Options(useGeneratedKeys=true,keyProperty="userId")
@@ -38,7 +38,7 @@ public interface UserDao {
     void delete(Long id);
 
     @Update("UPDATE `user` SET " +
-            "username=#{username} ,password= #{password} , name=#{name} , tele=#{tele} " +
+            "sno=#{sno} ,password= #{password} , name=#{name} , tele=#{tele} " +
             ",mail=#{mail} , address=#{address} , " +
             "idCard=#{idCard} , birthday=#{birthday}" +
             "WHERE userId=#{userId}")

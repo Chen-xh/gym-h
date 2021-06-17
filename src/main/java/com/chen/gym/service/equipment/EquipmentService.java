@@ -5,7 +5,6 @@ import com.chen.gym.bean.Equipment;
 import java.util.List;
 
 public interface EquipmentService {
-
     /**
      * 查询所有
      */

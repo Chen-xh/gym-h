@@ -85,7 +85,14 @@ public class ContestController {
         return JsonResult.success().addObject("list", list);
 
     }
+    @ApiOperation(value = "根据target查询所有")
+    @GetMapping("findByTarget")
+    public JsonResult findByTarget(Integer target) {
+        List<Contest> list = contestService.findByTarget(target);
 
+        return JsonResult.success().addObject("list", list);
+
+    }
     @ApiOperation(value = "添加")
     @PostMapping("add")
     public JsonResult add(Contest contest) {

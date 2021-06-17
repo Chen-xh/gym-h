@@ -33,7 +33,7 @@ public class UserController {
     UserService userService;
 
 
-    @ApiOperation(value = "条件查询")
+    @ApiOperation(value = "条件查询",notes = "默认查全部，条可以为空，有值就模糊查询")
     @PostMapping("select")
     public JsonResult select(User user) {
         List<User> list = userService.select(user);
@@ -66,6 +66,14 @@ public class UserController {
     @ApiOperation(value = "添加")
     @PostMapping("admin/add")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "sno",value = "学号（12位）", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "password", value = "密码", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "name", value = "名称", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "idCard", value = "身份证（18位）", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "birthday", value = "生日日期", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "tele", value = "联系电话", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "mail", value = "邮箱", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "address", value = "地址", required = true, paramType = "query", dataType = "String"),
     })
     public JsonResult add(User user) {
         userService.add(user);
@@ -85,6 +93,17 @@ public class UserController {
 
     @ApiOperation(value = "修改")
     @PostMapping("admin/update")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId",value = "用户id", required = true, paramType = "query", dataType = "Long"),
+            @ApiImplicitParam(name = "sno",value = "学号（12位）", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "password", value = "密码", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "name", value = "名称", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "idCard", value = "身份证（18位）", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "birthday", value = "生日日期", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "tele", value = "联系电话", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "mail", value = "邮箱", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "address", value = "地址", required = true, paramType = "query", dataType = "String"),
+    })
     public JsonResult update(User user) {
         userService.update(user);
 

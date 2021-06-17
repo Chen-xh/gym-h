@@ -35,7 +35,7 @@ public class LoginController {
 
     @ApiOperation(value = "用户登录")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "username",value = "用户名", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "username",value = "用户名（12位学号）", required = true, paramType = "query", dataType = "String"),
             @ApiImplicitParam(name = "password", value = "密码", required = true, paramType = "query", dataType = "String")
     })
     @PostMapping("login")
@@ -47,16 +47,22 @@ public class LoginController {
                 .addObject("roles",  map.get("roles"));
 
     }
-    @ApiOperation(value = "用户注册",notes = "除了id都不为空")
+    @ApiOperation(value = "用户注册")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "username",value = "用户名", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "sno",value = "学号（12位）", required = true, paramType = "query", dataType = "String"),
             @ApiImplicitParam(name = "password", value = "密码", required = true, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "passwordCheck", value = "确认密码", required = true, paramType = "query", dataType = "String")
+            @ApiImplicitParam(name = "passwordCheck", value = "确认密码", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "name", value = "名称", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "idCard", value = "身份证（18位）", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "birthday", value = "生日日期", required = true, paramType = "query", dataType = "Date"),
+            @ApiImplicitParam(name = "tele", value = "联系电话", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "mail", value = "邮箱", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "address", value = "地址", required = true, paramType = "query", dataType = "String"),
     })
     @PostMapping("register")
     public JsonResult userRegister(User user,String passwordCheck) {
         userService.register(user,passwordCheck);
-
+        System.out.println(user.getBirthday());
         return JsonResult.success();
 
     }

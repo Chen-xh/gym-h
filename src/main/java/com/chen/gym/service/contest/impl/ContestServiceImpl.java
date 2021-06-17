@@ -31,6 +31,11 @@ public class ContestServiceImpl implements ContestService {
     }
 
     @Override
+    public List<Contest> findByTarget(Integer target) {
+        return contestDao.findByTarget(target);
+    }
+
+    @Override
     public List<Contest> select(Contest contest) {
 
         StringBuilder sql = new StringBuilder("SELECT * FROM contest where 1=1 ");
