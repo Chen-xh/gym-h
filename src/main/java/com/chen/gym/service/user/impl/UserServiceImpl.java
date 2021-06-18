@@ -55,12 +55,13 @@ public class UserServiceImpl implements UserService {
         Map<String, Object> map = new HashMap<>();
         map.put("token", token.getPrincipal());
         map.put("roles", roles);
+        map.put("userId", user.getUserId());
         return map;
     }
 
     @Override
-    public void register(User user,String passwordCheck) {
-        if(user.getPassword().equals(passwordCheck))add(user);
+    public void register(User user, String passwordCheck) {
+        if (user.getPassword().equals(passwordCheck)) add(user);
         else {
             throw new CustomizeRuntimeException(MyCustomizeErrorCode.CHECK_PASSWORD_NO);
         }
@@ -68,7 +69,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findAll() {
-        List<User> list=userDao.findAllUser();
 
         return userDao.findAllUser();
     }
@@ -106,7 +106,7 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
         }
 
-        PLOG.info("Select >> "+sql.toString());
+        PLOG.info("Select >> " + sql.toString());
         return userDao.select(sql.toString());
     }
 
@@ -121,14 +121,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void add(User user) {
+        Integer count=userDao.getSnoExist(user.getSno());
+        if(count!=0)throw new CustomizeRuntimeException(MyCustomizeErrorCode.USERNAME_EXIST);
         //加密
         String passwords = MD5Util.getHexPassword(user.getPassword());
-       user.setPassword(passwords);
+        user.setPassword(passwords);
 
         userDao.add(user);
-        Long uid=user.getUserId();
+        Long uid = user.getUserId();
         //默认普通用户
-         roleDao.addRoleRelative(uid,2L);
+        roleDao.addRoleRelative(uid, 2L);
     }
 
     @Override
@@ -142,9 +144,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void update(User user) {
+
         User item = userDao.findUserById(user.getUserId());
         if (item == null) {
             throw new CustomizeRuntimeException(MyCustomizeErrorCode.NOT_FOND_USER);
+        }
+        if(!item.getSno().equals(user.getSno())){
+            Integer count=userDao.getSnoExist(user.getSno());
+            if(count!=0)throw new CustomizeRuntimeException(MyCustomizeErrorCode.USERNAME_EXIST);
         }
         //加密
         String passwords = MD5Util.getHexPassword(user.getPassword());
@@ -166,6 +173,8 @@ public class UserServiceImpl implements UserService {
         if (item == null) {
             throw new CustomizeRuntimeException(MyCustomizeErrorCode.NOT_FOND_USER);
         }
-        roleDao.updateRoleRelative(uid,rid);
+        roleDao.updateRoleRelative(uid, rid);
     }
+
+
 }

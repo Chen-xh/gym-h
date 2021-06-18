@@ -2,6 +2,7 @@ package com.chen.gym.controller.user;
 
 
 import com.chen.gym.bean.User;
+import com.chen.gym.dao.user.UserDao;
 import com.chen.gym.service.user.UserService;
 import com.chen.gym.util.JsonResult;
 import io.swagger.annotations.Api;
@@ -33,6 +34,7 @@ public class LoginController {
     private  UserService userService;
 
 
+
     @ApiOperation(value = "用户登录")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "username",value = "用户名（12位学号）", required = true, paramType = "query", dataType = "String"),
@@ -61,7 +63,6 @@ public class LoginController {
     @PostMapping("register")
     public JsonResult userRegister(User user,String passwordCheck) {
         userService.register(user,passwordCheck);
-        System.out.println(user.getBirthday());
         return JsonResult.success();
 
     }

@@ -30,9 +30,13 @@ public enum MyCustomizeErrorCode implements CustomizeErrorCode {
     NOT_FOND_Field(2005,"没有找到场地!"),
 
     /**
-     * 2005:没有找到场地使用信息!
+     * 2006:没有找到场地使用信息!
      */
     NOT_FOND_FieldUseInfo(2006,"没有找到场地使用信息!"),
+    /**
+     * 2007:用户名已存在!
+     */
+    USERNAME_EXIST(2007,"用户名已存在!"),
 
     /**
      * 3001:尚未登录!

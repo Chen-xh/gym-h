@@ -26,6 +26,9 @@ public interface UserDao {
     @Select("SELECT * FROM `user` WHERE sno=#{sno}")
     User findUserByUsername(String sno);
 
+    @Select("SELECT count(*) FROM `user` WHERE sno=#{sno}")
+    Integer getSnoExist(String sno);
+
     @Select("SELECT target from user_role u left outer join role r on(u.rid=r.rid) where u.uid=#{uid}")
     List<String> getUserRole(Long uid);
 
