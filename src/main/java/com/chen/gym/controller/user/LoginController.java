@@ -45,7 +45,6 @@ public class LoginController {
         return JsonResult.success()
                 .addObject("token", map.get("token"))
                 .addObject("roles",  map.get("roles"));
-
     }
     @ApiOperation(value = "用户注册")
     @ApiImplicitParams({

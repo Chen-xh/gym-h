@@ -33,16 +33,16 @@ public class EquipmentRentInfoController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id",value = "器材租用记录标识ID", required = false, paramType = "query", dataType = "String"),
             @ApiImplicitParam(name = "toolName", value = "器材名称", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "rentNum", value = "租出数", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "startTime", value = "开始时间", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "endTime", value = "结束时间", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "classNum", value = "使用时间段数", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "rentNum", value = "租出数", required = false, paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = "startTime", value = "开始时间", required = false, paramType = "query", dataType = "Date"),
+            @ApiImplicitParam(name = "endTime", value = "结束时间", required = false, paramType = "query", dataType = "Date"),
+            @ApiImplicitParam(name = "classNum", value = "使用时间段数", required = false, paramType = "query", dataType = "int"),
             @ApiImplicitParam(name = "username", value = "借用者", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "target", value = "租用记录状态：1、租出；2、已回收；3、已超时；4、存在损坏或遗失", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "backNum", value = "归还数", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "backTime", value = "归还时间", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "brokenNum", value = "损坏或遗失数", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "totalMoney", value = "总租用金额", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "target", value = "租用记录状态：1、租出；2、已回收；3、已超时；4、存在损坏或遗失", required = false, paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = "backNum", value = "归还数", required = false, paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = "backTime", value = "归还时间", required = false, paramType = "query", dataType = "Date"),
+            @ApiImplicitParam(name = "brokenNum", value = "损坏或遗失数", required = false, paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = "totalMoney", value = "总租用金额", required = false, paramType = "query", dataType = "double"),
     })
     public JsonResult selectRentInfo(EquipmentRentInfo equipment) {
         List<EquipmentRentInfo> list = equipmentRentInfoService.select(equipment);
@@ -91,16 +91,16 @@ public class EquipmentRentInfoController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id",value = "器材租用记录标识ID", required = false, paramType = "query", dataType = "String"),
             @ApiImplicitParam(name = "toolName", value = "器材名称", required = true, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "rentNum", value = "租出数", required = true, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "startTime", value = "开始时间", required = true, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "endTime", value = "结束时间", required = true, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "classNum", value = "使用时间段数", required = true, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "username", value = "借用者", required = true, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "target", value = "租用记录状态：1、租出；2、已回收；3、已超时；4、存在损坏或遗失", required = true, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "backNum", value = "归还数", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "backTime", value = "归还时间", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "brokenNum", value = "损坏或遗失数", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "totalMoney", value = "总租用金额", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "rentNum", value = "租出数", required = true, paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = "startTime", value = "开始时间", required = true, paramType = "query", dataType = "Date"),
+            @ApiImplicitParam(name = "endTime", value = "结束时间", required = true, paramType = "query", dataType = "Date"),
+            @ApiImplicitParam(name = "classNum", value = "使用时间段数", required = true, paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = "username", value = "借用者", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "target", value = "租用记录状态：1、租出；2、已回收；3、已超时；4、存在损坏或遗失", required = false, paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = "backNum", value = "归还数", required = false, paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = "backTime", value = "归还时间", required = false, paramType = "query", dataType = "Date"),
+            @ApiImplicitParam(name = "brokenNum", value = "损坏或遗失数", required = false, paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = "totalMoney", value = "总租用金额", required = true, paramType = "query", dataType = "double"),
     })
     public JsonResult add(EquipmentRentInfo equipmentRentInfo) {
         equipmentRentInfoService.add(equipmentRentInfo);
@@ -126,16 +126,16 @@ public class EquipmentRentInfoController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id",value = "器材租用记录标识ID", required = false, paramType = "query", dataType = "String"),
             @ApiImplicitParam(name = "toolName", value = "器材名称", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "rentNum", value = "租出数", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "startTime", value = "开始时间", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "endTime", value = "结束时间", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "classNum", value = "使用时间段数", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "rentNum", value = "租出数", required = false, paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = "startTime", value = "开始时间", required = false, paramType = "query", dataType = "Date"),
+            @ApiImplicitParam(name = "endTime", value = "结束时间", required = false, paramType = "query", dataType = "Date"),
+            @ApiImplicitParam(name = "classNum", value = "使用时间段数", required = false, paramType = "query", dataType = "int"),
             @ApiImplicitParam(name = "username", value = "借用者", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "target", value = "租用记录状态：1、租出；2、已回收；3、已超时；4、存在损坏或遗失", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "backNum", value = "归还数", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "backTime", value = "归还时间", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "brokenNum", value = "损坏或遗失数", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "totalMoney", value = "总租用金额", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "target", value = "租用记录状态：1、租出；2、已回收；3、已超时；4、存在损坏或遗失", required = false, paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = "backNum", value = "归还数", required = false, paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = "backTime", value = "归还时间", required = false, paramType = "query", dataType = "Date"),
+            @ApiImplicitParam(name = "brokenNum", value = "损坏或遗失数", required = false, paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = "totalMoney", value = "总租用金额", required = false, paramType = "query", dataType = "double"),
     })
     public JsonResult recover(EquipmentRentInfo equipmentRentInfo) {
         equipmentRentInfoService.recover(equipmentRentInfo);

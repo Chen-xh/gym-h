@@ -38,12 +38,12 @@ public class EquipmentController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "器材标识id", required = false, paramType = "query", dataType = "String"),
             @ApiImplicitParam(name = "toolKind", value = "器材名称（器材类型）", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "allNum", value = "所有数量", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "damageNum", value = "损坏或遗失数量", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "rentNum", value = "租出数量", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "totalNum", value = "剩余数量", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "rendStandard", value = "器材收费标准", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "editTime", value = "器材编辑时间", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "allNum", value = "所有数量", required = false, paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = "damageNum", value = "损坏或遗失数量", required = false, paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = "rentNum", value = "租出数量", required = false, paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = "totalNum", value = "剩余数量", required = false, paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = "rendStandard", value = "器材收费标准", required = false, paramType = "query", dataType = "double"),
+            @ApiImplicitParam(name = "editTime", value = "器材编辑时间", required = false, paramType = "query", dataType = "Date"),
             @ApiImplicitParam(name = "userId", value = "编辑人", required = false, paramType = "query", dataType = "String"),
     })
     public JsonResult selectEquipment(Equipment equipment) {
@@ -78,12 +78,12 @@ public class EquipmentController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "器材标识id", required = false, paramType = "query", dataType = "String"),
             @ApiImplicitParam(name = "toolKind", value = "器材名称（器材类型）", required = true, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "allNum", value = "所有数量", required = true, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "damageNum", value = "损坏或遗失数量", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "rentNum", value = "租出数量", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "totalNum", value = "剩余数量", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "rendStandard", value = "器材收费标准", required = true, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "editTime", value = "器材编辑时间", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "allNum", value = "所有数量", required = true, paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = "damageNum", value = "损坏或遗失数量", required = false, paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = "rentNum", value = "租出数量", required = false, paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = "totalNum", value = "剩余数量", required = false, paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = "rendStandard", value = "器材收费标准", required = true, paramType = "query", dataType = "double"),
+            @ApiImplicitParam(name = "editTime", value = "器材编辑时间", required = false, paramType = "query", dataType = "Date"),
             @ApiImplicitParam(name = "userId", value = "编辑人", required = true, paramType = "query", dataType = "String"),
     })
     public JsonResult add(Equipment equipment) {
@@ -110,12 +110,12 @@ public class EquipmentController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "器材标识id", required = false, paramType = "query", dataType = "String"),
             @ApiImplicitParam(name = "toolKind", value = "器材名称（器材类型）", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "allNum", value = "所有数量", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "damageNum", value = "损坏或遗失数量", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "rentNum", value = "租出数量", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "totalNum", value = "剩余数量", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "rendStandard", value = "器材收费标准", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "editTime", value = "器材编辑时间", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "allNum", value = "所有数量", required = false, paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = "damageNum", value = "损坏或遗失数量", required = false, paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = "rentNum", value = "租出数量", required = false, paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = "totalNum", value = "剩余数量", required = false, paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = "rendStandard", value = "器材收费标准", required = false, paramType = "query", dataType = "double"),
+            @ApiImplicitParam(name = "editTime", value = "器材编辑时间", required = false, paramType = "query", dataType = "Date"),
             @ApiImplicitParam(name = "userId", value = "编辑人", required = false, paramType = "query", dataType = "String"),
     })
     public JsonResult update(Equipment equipment) {
