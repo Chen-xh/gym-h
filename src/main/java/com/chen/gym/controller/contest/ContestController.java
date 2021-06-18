@@ -33,6 +33,18 @@ public class ContestController {
 
     @ApiOperation(value = "条件查询")
     @PostMapping("select")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "cid", value = "赛事id", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "name", value = "赛事名字", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "organizers", value = "赛事主办方", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "openTime", value = "赛事开始时间", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "date", value = "赛事日期", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "object", value = "参赛对象", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "tele", value = "赛事主办方电话", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "place", value = "赛事场地使用ID", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "equipment", value = "赛事器材使用id", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "target", value = "赛事id", required = false, paramType = "query", dataType = "String"),
+    })
     public JsonResult select(Contest contest) {
         List<Contest> list = contestService.select(contest);
         return JsonResult.success().addObject("list", list);
@@ -93,8 +105,21 @@ public class ContestController {
         return JsonResult.success().addObject("list", list);
 
     }
+
     @ApiOperation(value = "添加")
     @PostMapping("add")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "cid", value = "赛事id", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "name", value = "赛事名字", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "organizers", value = "赛事主办方", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "openTime", value = "赛事开始时间", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "date", value = "赛事日期", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "object", value = "参赛对象", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "tele", value = "赛事主办方电话", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "place", value = "赛事场地使用ID", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "equipment", value = "赛事器材使用id", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "target", value = "赛事id", required = true, paramType = "query", dataType = "String"),
+    })
     public JsonResult add(Contest contest) {
         contestService.add(contest);
 
@@ -104,6 +129,9 @@ public class ContestController {
 
     @ApiOperation(value = "删除")
     @DeleteMapping("delete")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "赛事id", required = true, paramType = "query", dataType = "String"),
+    })
     public JsonResult delete(Long id) {
         contestService.delete(id);
 
@@ -113,6 +141,18 @@ public class ContestController {
 
     @ApiOperation(value = "修改")
     @PostMapping("update")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "cid", value = "赛事id", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "name", value = "赛事名字", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "organizers", value = "赛事主办方", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "openTime", value = "赛事开始时间", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "date", value = "赛事日期", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "object", value = "参赛对象", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "tele", value = "赛事主办方电话", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "place", value = "赛事场地使用ID", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "equipment", value = "赛事器材使用id", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "target", value = "赛事id", required = false, paramType = "query", dataType = "String"),
+    })
     public JsonResult update(Contest contest) {
         contestService.update(contest);
 
