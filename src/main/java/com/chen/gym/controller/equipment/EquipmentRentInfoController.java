@@ -18,7 +18,7 @@ import java.util.List;
  * @author Jinbert
  * @date 2021/6/13
  */
-@Api(tags = "器材管理接口")
+@Api(tags = "器材租用信息管理接口")
 @RequestMapping("/equipmentRentInfo/")
 @RestController
 @CrossOrigin

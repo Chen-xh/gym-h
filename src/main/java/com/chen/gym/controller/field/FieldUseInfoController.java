@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api(tags = "场地管理接口")
+@Api(tags = "场地使用信息管理接口")
 @RequestMapping("/fieldUse/")
 @RestController
 @CrossOrigin

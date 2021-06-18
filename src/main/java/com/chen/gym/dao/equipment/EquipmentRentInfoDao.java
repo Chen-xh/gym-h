@@ -1,11 +1,11 @@
 package com.chen.gym.dao.equipment;
 
-import com.chen.gym.bean.Equipment;
 import com.chen.gym.bean.EquipmentRentInfo;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
+@Mapper
 public interface EquipmentRentInfoDao {
     /**
      * 查询所有租用记录
@@ -64,11 +64,9 @@ public interface EquipmentRentInfoDao {
     /**
      * 多条件查询
      */
-    @SelectProvider(type = EquipmentDao.MyProvider.class, method = "select")
-    List<EquipmentRentInfo> select(EquipmentRentInfo equipmentRentInfo);
 
     //使用MyProvider类的select方法来动态生成sql
-    @SelectProvider(type = EquipmentDao.MyProvider.class, method = "select")
+    @SelectProvider(type = MyProvider.class, method = "select")
     List<EquipmentRentInfo> select(String sql);
 
     class MyProvider {

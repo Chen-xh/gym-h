@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
+@Mapper
 public interface FieldDao {
     @Select("select * from field")
     List<Field> findAll();

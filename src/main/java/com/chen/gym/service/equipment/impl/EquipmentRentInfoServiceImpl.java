@@ -80,7 +80,7 @@ public class EquipmentRentInfoServiceImpl implements EquipmentRentInfoService {
 
     @Override
     public List<EquipmentRentInfo> select(EquipmentRentInfo equipmentRentInfo) {
-        StringBuilder sql = new StringBuilder("SELECT * FROM equipment where 1=1 ");
+        StringBuilder sql = new StringBuilder("SELECT * FROM equipmentRentInfo where 1=1 ");
         try {
             //通过反射遍历对象中的属性
             Class cls = equipmentRentInfo.getClass();
