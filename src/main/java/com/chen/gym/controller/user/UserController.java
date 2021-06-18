@@ -63,6 +63,15 @@ public class UserController {
 
     }
 
+    @ApiOperation(value = "查询所有管理员")
+    @GetMapping("findAllManager")
+    public JsonResult findAllManager() {
+        List<User> list = userService.findAllManager();
+
+        return JsonResult.success().addObject("list", list);
+
+    }
+
     @ApiOperation(value = "添加")
     @PostMapping("admin/add")
     @ApiImplicitParams({

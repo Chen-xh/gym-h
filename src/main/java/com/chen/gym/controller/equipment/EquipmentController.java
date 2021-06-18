@@ -94,6 +94,5 @@ public class EquipmentController {
     public JsonResult getAllKind() {
         equipmentService.getAllKind();
         return JsonResult.success();
-
     }
 }

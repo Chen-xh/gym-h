@@ -17,6 +17,9 @@ public interface UserDao {
     @Select("select * from user_role u left outer join user r on(u.uid=r.userId)")
     List<User> findAllUser();
 
+    @Select("select * from (select * from user_role where rid != 2) u left outer join user r on(u.uid=r.userId)")
+    List<User> findAllManager();
+
     @Select("SELECT * from user_role u left outer join user r on(u.uid=r.userId)  WHERE userId=#{id}")
     User findUserById(Long id);
 

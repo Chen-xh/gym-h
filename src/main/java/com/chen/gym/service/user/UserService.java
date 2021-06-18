@@ -24,6 +24,10 @@ public interface UserService {
      */
     List<User> findAll();
     /**
+     * 查询管理员
+     */
+    List<User> findAllManager();
+    /**
      * 查询所有角色
      */
     List<Role> findAllRole();
