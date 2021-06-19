@@ -6,15 +6,15 @@ import java.util.Date;
 
 public class Equipment {
     private Long id;
-    private String toolKind;
+    private String equipmentName;
     private int allNum;
     private int damageNum;
     private int rentNum;
     private int totalNum;
     private double rendStandard;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:MM")
     private Date editTime;
-    private Long userId;
+    private Long sno;
 
     public Long getId() {
         return id;
@@ -24,12 +24,12 @@ public class Equipment {
         this.id = id;
     }
 
-    public String getToolKind() {
-        return toolKind;
+    public String getEquipmentName() {
+        return equipmentName;
     }
 
-    public void setToolKind(String toolKind) {
-        this.toolKind = toolKind;
+    public void setEquipmentName(String equipmentName) {
+        this.equipmentName = equipmentName;
     }
 
     public int getAllNum() {
@@ -72,8 +72,8 @@ public class Equipment {
         this.editTime = editTime;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getSno() {
+        return sno;
     }
 
     public int getRentNum() {
@@ -84,22 +84,22 @@ public class Equipment {
         this.rentNum = rentNum;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setSno(Long sno) {
+        this.sno = sno;
     }
 
     @Override
     public String toString() {
         return "Tool{" +
                 "id=" + id +
-                ", toolKind='" + toolKind + '\'' +
+                ", equipmentName='" + equipmentName + '\'' +
                 ", allNum=" + allNum +
                 ", damageNum=" + damageNum +
                 ", rentNum=" + rentNum +
                 ", totalNum=" + totalNum +
                 ", rendStandard=" + rendStandard +
                 ", editTime=" + editTime +
-                ", userId=" + userId +
+                ", sno=" + sno +
                 '}';
     }
 }

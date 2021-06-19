@@ -24,10 +24,10 @@ public class FieldUseInfo {
     // 总使用时间段
     private int borrowTime;
     // 开始时间
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH")
     private Date startTime;
     // 结束时间
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH")
     private Date endTime;
 
     public Long getId() {

@@ -38,8 +38,7 @@ public class EquipmentServiceImpl implements EquipmentService {
                 //设置属性可访问，破坏私有
                 f.setAccessible(true);
                 if (f.get(equipment) != null) {
-//                    System.out.println("属性名:" + f.getName() + " 属性值:" + f.get(contest));
-                    if (f.getName().equals("date") || f.getName().equals("editTime")) {
+                    if (f.getName().equals("editTime")) {
 //                       时间要具体处理。。
                     } else {
                         sql.append(" and ").append(f.getName()).append(" like '%").append(f.get(equipment)).append("%'");
@@ -65,7 +64,18 @@ public class EquipmentServiceImpl implements EquipmentService {
 
     @Override
     public void add(Equipment equipment) {
+
+        // 检查名称是否唯一
+        if(equipmentDao.findEquipmentByEquipmentName(equipment.getEquipmentName()) != null){
+            throw new CustomizeRuntimeException(MyCustomizeErrorCode.EQUIPMENT_EXIST);
+        }
+
+        // 器材数量默认处理
+        equipment.setTotalNum(equipment.getAllNum());
+        equipment.setRentNum(0);
+        equipment.setDamageNum(0);
         equipment.setEditTime(new Date());
+
         equipmentDao.addEquipment(equipment);
     }
 
@@ -85,15 +95,15 @@ public class EquipmentServiceImpl implements EquipmentService {
             throw new CustomizeRuntimeException(MyCustomizeErrorCode.NOT_FOND_Equipment);
         }
 
-        item.setId(equipment.getId());
         item.setEditTime(new Date());
         item.setAllNum(equipment.getAllNum());
         item.setDamageNum(equipment.getDamageNum());
         item.setRendStandard(equipment.getRendStandard());
         item.setRentNum(equipment.getRentNum());
-        item.setToolKind(equipment.getToolKind());
-        item.setTotalNum(equipment.getTotalNum());
-        item.setUserId(equipment.getUserId());
+        item.setEquipmentName(equipment.getEquipmentName());
+        // 器材剩余总数处理
+        item.setTotalNum(equipment.getAllNum() - equipment.getDamageNum() - equipment.getRentNum());
+        item.setSno(equipment.getSno());
 
         equipmentDao.updateEquipment(item);
     }

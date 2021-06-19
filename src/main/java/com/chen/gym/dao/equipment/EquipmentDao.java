@@ -15,10 +15,13 @@ public interface EquipmentDao {
     @Select("SELECT * FROM `equipment` WHERE id=#{id}")
     Equipment findEquipmentByID(Long id);
 
-    @Insert("insert into equipment(toolKind,allNum , damageNum, rentNum, totalNum,rendStandard , editTime,userId) " +
+    @Select("SELECT * FROM `equipment` WHERE equipmentName=#{equipmentName}")
+    Equipment findEquipmentByEquipmentName(String equipmentName);
+
+    @Insert("insert into equipment(toolKind,allNum , damageNum, rentNum, totalNum, rendStandard , editTime,sno) " +
             "values(#{toolKind} ,#{allNum}, " +
             "#{damageNum} ,#{rentNum} , #{totalNum} , " +
-            "#{rendStandard} , #{editTime}, #{userId})")
+            "#{rendStandard} , #{editTime}, #{sno})")
     void addEquipment(Equipment equipment);
 
     @Delete("DELETE FROM `equipment` WHERE id=#{id}")
@@ -26,7 +29,7 @@ public interface EquipmentDao {
 
     @Update("UPDATE `equipment` SET " +
             "toolKind= #{toolKind} , allNum=#{allNum} , damageNum=#{damageNum} ,rentNum=#{rentNum} , totalNum=#{totalNum} , " +
-            "rendStandard=#{rendStandard} , editTime=#{editTime} , userId=#{userId} " +
+            "rendStandard=#{rendStandard} , editTime=#{editTime} , sno=#{sno} " +
             "WHERE id=#{id}")
     void updateEquipment(Equipment equipment);
 

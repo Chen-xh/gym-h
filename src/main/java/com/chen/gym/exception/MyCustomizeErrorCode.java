@@ -20,7 +20,7 @@ public enum MyCustomizeErrorCode implements CustomizeErrorCode {
     NOT_FOND_Equipment(2003,"没有找到器材!"),
 
     /**
-     * 2004:没有找到器材租界消息!
+     * 2004:没有找到器材租借信息!
      */
     NOT_FOND_EquipmentRentInfo(2004,"没有找到器材租借信息!"),
 
@@ -37,6 +37,10 @@ public enum MyCustomizeErrorCode implements CustomizeErrorCode {
      * 2007:用户名已存在!
      */
     USERNAME_EXIST(2007,"用户名已存在!"),
+    /**
+     * 2008:器材已存在!
+     */
+    EQUIPMENT_EXIST(2008,"器材已存在!"),
 
     /**
      * 3001:尚未登录!
