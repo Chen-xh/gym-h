@@ -24,30 +24,25 @@ import java.util.List;
 @RestController
 @CrossOrigin
 public class EquipmentController {
-    private static final Logger PLOG = LoggerFactory.getLogger(EquipmentController.class);
-
     @Resource
     EquipmentService equipmentService;
-
-    @Resource
-    EquipmentRentInfoService equipmentRentInfoService;
-
 
     @ApiOperation(value = "条件查询")
     @PostMapping("select")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "器材标识id", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "toolKind", value = "器材名称（器材类型）", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "equipmentName", value = "器材名称（器材类型）", required = false, paramType = "query", dataType = "String"),
             @ApiImplicitParam(name = "allNum", value = "所有数量", required = false, paramType = "query", dataType = "int"),
             @ApiImplicitParam(name = "damageNum", value = "损坏或遗失数量", required = false, paramType = "query", dataType = "int"),
             @ApiImplicitParam(name = "rentNum", value = "租出数量", required = false, paramType = "query", dataType = "int"),
             @ApiImplicitParam(name = "totalNum", value = "剩余数量", required = false, paramType = "query", dataType = "int"),
             @ApiImplicitParam(name = "rendStandard", value = "器材收费标准", required = false, paramType = "query", dataType = "double"),
-            @ApiImplicitParam(name = "editTime", value = "器材编辑时间", required = false, paramType = "query", dataType = "Date"),
-            @ApiImplicitParam(name = "userId", value = "编辑人", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "editTime", value = "器材编辑时间(YYYY-MM-dd-HH:mm:ss)", required = false, paramType = "query", dataType = "Date"),
+            @ApiImplicitParam(name = "sno", value = "管理员账号", required = false, paramType = "query", dataType = "String"),
     })
     public JsonResult selectEquipment(Equipment equipment) {
         List<Equipment> list = equipmentService.select(equipment);
+
         return JsonResult.success().addObject("list", list);
     }
 
@@ -64,7 +59,6 @@ public class EquipmentController {
 
     }
 
-
     @ApiOperation(value = "查询所有")
     @GetMapping("findAll")
     public JsonResult findAll() {
@@ -73,24 +67,31 @@ public class EquipmentController {
         return JsonResult.success().addObject("list", list);
     }
 
+    @ApiOperation(value = "查询所有可租借器材")
+    @GetMapping("findALlCanRent")
+    public JsonResult findALlCanRent() {
+        List<Equipment> list = equipmentService.findALlCanRent();
+
+        return JsonResult.success().addObject("list", list);
+    }
+
     @ApiOperation(value = "添加")
     @PostMapping("add")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "器材标识id", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "toolKind", value = "器材名称（器材类型）", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "equipmentName", value = "器材名称（器材类型）", required = true, paramType = "query", dataType = "String"),
             @ApiImplicitParam(name = "allNum", value = "所有数量", required = true, paramType = "query", dataType = "int"),
             @ApiImplicitParam(name = "damageNum", value = "损坏或遗失数量", required = false, paramType = "query", dataType = "int"),
             @ApiImplicitParam(name = "rentNum", value = "租出数量", required = false, paramType = "query", dataType = "int"),
             @ApiImplicitParam(name = "totalNum", value = "剩余数量", required = false, paramType = "query", dataType = "int"),
             @ApiImplicitParam(name = "rendStandard", value = "器材收费标准", required = true, paramType = "query", dataType = "double"),
-            @ApiImplicitParam(name = "editTime", value = "器材编辑时间", required = false, paramType = "query", dataType = "Date"),
-            @ApiImplicitParam(name = "userId", value = "编辑人", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "editTime", value = "器材编辑时间(YYYY-MM-dd-HH:mm:ss)", required = false, paramType = "query", dataType = "Date"),
+            @ApiImplicitParam(name = "sno", value = "管理员账号", required = true, paramType = "query", dataType = "String"),
     })
     public JsonResult add(Equipment equipment) {
         equipmentService.add(equipment);
 
         return JsonResult.success();
-
     }
 
     @ApiOperation(value = "删除")
@@ -102,27 +103,25 @@ public class EquipmentController {
         equipmentService.delete(id);
 
         return JsonResult.success();
-
     }
 
     @ApiOperation(value = "修改")
     @PostMapping("update")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "器材标识id", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "toolKind", value = "器材名称（器材类型）", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "equipmentName", value = "器材名称（器材类型）", required = false, paramType = "query", dataType = "String"),
             @ApiImplicitParam(name = "allNum", value = "所有数量", required = false, paramType = "query", dataType = "int"),
             @ApiImplicitParam(name = "damageNum", value = "损坏或遗失数量", required = false, paramType = "query", dataType = "int"),
             @ApiImplicitParam(name = "rentNum", value = "租出数量", required = false, paramType = "query", dataType = "int"),
             @ApiImplicitParam(name = "totalNum", value = "剩余数量", required = false, paramType = "query", dataType = "int"),
             @ApiImplicitParam(name = "rendStandard", value = "器材收费标准", required = false, paramType = "query", dataType = "double"),
-            @ApiImplicitParam(name = "editTime", value = "器材编辑时间", required = false, paramType = "query", dataType = "Date"),
-            @ApiImplicitParam(name = "userId", value = "编辑人", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "editTime", value = "器材编辑时间(YYYY-MM-dd-HH:mm:ss)", required = false, paramType = "query", dataType = "Date"),
+            @ApiImplicitParam(name = "sno", value = "管理员账号", required = false, paramType = "query", dataType = "String"),
     })
     public JsonResult update(Equipment equipment) {
         equipmentService.update(equipment);
 
         return JsonResult.success();
-
     }
 
     @ApiOperation(value = "获取所有器材名称（器材类型）")
