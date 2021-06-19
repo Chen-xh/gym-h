@@ -41,6 +41,10 @@ public enum MyCustomizeErrorCode implements CustomizeErrorCode {
      * 2008:器材已存在!
      */
     EQUIPMENT_EXIST(2008,"器材已存在!"),
+    /**
+     * 2009:器材数目异常!
+     */
+    Equipment_Number_Error(2009,"器材数目异常!"),
 
     /**
      * 3001:尚未登录!

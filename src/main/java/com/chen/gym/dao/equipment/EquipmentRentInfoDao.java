@@ -3,6 +3,7 @@ package com.chen.gym.dao.equipment;
 import com.chen.gym.bean.EquipmentRentInfo;
 import org.apache.ibatis.annotations.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Mapper
@@ -14,16 +15,28 @@ public interface EquipmentRentInfoDao {
     List<EquipmentRentInfo> findAll();
 
     /**
-     * 查询所有租出中记录
+     * 查询所有待回收
      */
-    @Select("SELECT * FROM `equipmentRentInfo` WHERE target=1")
-    List<EquipmentRentInfo> findAllRenting();
+    @Select("SELECT * FROM `equipmentRentInfo` WHERE target=1 and target=3")
+    List<EquipmentRentInfo> findAllBeRecover();
 
     /**
-     * 查询所有回收记录
+     * 查询所有租用记录
      */
-    @Select("SELECT * FROM `equipmentRentInfo` WHERE target=2")
-    List<EquipmentRentInfo> findAllRecovering();
+    @Select("SELECT * FROM `equipmentRentInfo` WHERE target=4 and target=6")
+    List<EquipmentRentInfo> findAllRecover();
+
+    /**
+     * 根据租用状态查询
+     */
+    @Select("SELECT * FROM `equipmentRentInfo` WHERE target=#{target}")
+    List<EquipmentRentInfo> findRentInfoByTarget(int target);
+
+    /**
+     * 根据学号或教工号查询租用记录
+     */
+    @Select("SELECT * FROM `equipmentRentInfo` WHERE sno=#{sno}")
+    List<EquipmentRentInfo> findRentInfoBySno(String sno);
 
     /**
      * 根据ID查询租用记录
@@ -34,26 +47,35 @@ public interface EquipmentRentInfoDao {
     /**
      * 添加租用记录
      */
-    @Insert("insert into equipmentRentInfo(toolName,rentNum , startTime, endTime, classNum,username , target,backNum, " +
-            "backTime,brokenNum,totalMoney) " +
-            "values(#{toolName} ,#{rentNum}, " +
-            "#{startTime} ,#{endTime} , #{classNum} , " +
-            "#{username} ,#{target} , #{backNum} , " +
-            "#{backTime} , #{brokenNum}, #{totalMoney})")
+    @Insert("insert into equipmentRentInfo(rentNum,startTime , endTime, requireTime, classNum,sno , target,backNum, " +
+            "editTime,brokenNum,totalMoney,eid) " +
+            "values(#{rentNum} ,#{startTime}, #{endTime}," +
+            "#{requireTime} ,#{classNum} , #{sno} , " +
+            "#{target} ,#{backNum} , #{editTime} , " +
+            "#{brokenNum} , #{totalMoney}, #{eid})")
     void add(EquipmentRentInfo equipmentRentInfo);
 
     /**
-     * 回收器材并更新租用记录状态
+     * 更新租用记录
      */
     @Update("UPDATE `equipmentRentInfo` SET " +
-            "toolName= #{toolName} , rentNum=#{rentNum} , " +
-            "startTime=#{startTime} ,endTime=#{endTime} , " +
-            "classNum=#{classNum} ,username=#{username} , " +
+            "rentNum= #{rentNum} , startTime=#{startTime} , " +
+            "endTime=#{endTime} ,requireTime=#{requireTime} , " +
+            "classNum=#{classNum} ,sno=#{sno} , " +
             "target=#{target} ,backNum=#{backNum} , " +
-            "backTime=#{backTime} ,brokenNum=#{brokenNum} , " +
-            "totalMoney=#{totalMoney} " +
+            "editTime=#{editTime} ,brokenNum=#{brokenNum} , " +
+            "totalMoney=#{totalMoney}, eid=#{eid} " +
             "WHERE id=#{id}")
-    void recover(EquipmentRentInfo equipmentRentInfo);
+    void update(EquipmentRentInfo equipmentRentInfo);
+
+    /**
+     * 更新标签
+     */
+    @Update("UPDATE `equipmentRentInfo` SET " +
+            "target=#{target}," +
+            "editTime=#{editTime}" +
+            "WHERE id=#{id}")
+    void updateTarget(int target, Long id, Date editTime);
 
     /**
      * 删除器材租用记录

@@ -1,6 +1,8 @@
 package com.chen.gym.service.equipment.impl;
 
+import com.chen.gym.bean.Equipment;
 import com.chen.gym.bean.EquipmentRentInfo;
+import com.chen.gym.dao.equipment.EquipmentDao;
 import com.chen.gym.dao.equipment.EquipmentRentInfoDao;
 import com.chen.gym.exception.CustomizeRuntimeException;
 import com.chen.gym.exception.MyCustomizeErrorCode;
@@ -9,12 +11,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.lang.reflect.Field;
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class EquipmentRentInfoServiceImpl implements EquipmentRentInfoService {
+    @Resource
     EquipmentRentInfoDao equipmentRentInfoDao;
+
+    @Resource
+    private EquipmentDao equipmentDao;
+
+
     private static final Logger PLOG = LoggerFactory.getLogger(EquipmentRentInfoServiceImpl.class);
 
     @Override
@@ -23,13 +33,23 @@ public class EquipmentRentInfoServiceImpl implements EquipmentRentInfoService {
     }
 
     @Override
-    public List<EquipmentRentInfo> findAllRenting() {
-        return equipmentRentInfoDao.findAllRenting();
+    public List<EquipmentRentInfo> findAllBeRecover() {
+        return equipmentRentInfoDao.findAllBeRecover();
     }
 
     @Override
-    public List<EquipmentRentInfo> findAllRecovering() {
-        return equipmentRentInfoDao.findAllRecovering();
+    public List<EquipmentRentInfo> findAllRecover() {
+        return equipmentRentInfoDao.findAllRecover();
+    }
+
+    @Override
+    public List<EquipmentRentInfo> findRentInfoByTarget(int target) {
+        return equipmentRentInfoDao.findRentInfoByTarget(target);
+    }
+
+    @Override
+    public List<EquipmentRentInfo> findRentInfoBySno(String sno) {
+        return equipmentRentInfoDao.findRentInfoBySno(sno);
     }
 
     @Override
@@ -43,30 +63,89 @@ public class EquipmentRentInfoServiceImpl implements EquipmentRentInfoService {
 
     @Override
     public void add(EquipmentRentInfo equipmentRentInfo) {
+        // 初始化处理
+        equipmentRentInfo.setRequireTime(new Date());
+        equipmentRentInfo.setTarget(0);
+
         equipmentRentInfoDao.add(equipmentRentInfo);
     }
 
     @Override
-    public void recover(EquipmentRentInfo equipmentRentInfo) {
+    public void passRequire(EquipmentRentInfo equipmentRentInfo) {
         EquipmentRentInfo item =equipmentRentInfoDao.findRentInfoById(equipmentRentInfo.getId());
         if(item == null){
             throw new CustomizeRuntimeException(MyCustomizeErrorCode.NOT_FOND_EquipmentRentInfo);
         }
 
-        item.setId(equipmentRentInfo.getId());
-        item.setBackNum(equipmentRentInfo.getBackNum());
-        item.setBackTime(equipmentRentInfo.getBackTime());
-        item.setBrokenNum(equipmentRentInfo.getBrokenNum());
-        item.setClassNum(equipmentRentInfo.getClassNum());
-        item.setEndTime(equipmentRentInfo.getEndTime());
-        item.setRentNum(equipmentRentInfo.getRentNum());
-        item.setStartTime(equipmentRentInfo.getStartTime());
-        item.setTarget(equipmentRentInfo.getTarget());
-        item.setToolName(equipmentRentInfo.getToolName());
-        item.setTotalMoney(equipmentRentInfo.getTotalMoney());
-        item.setUsername(equipmentRentInfo.getUsername());
+        // 器材数量减少变化处理
 
-        equipmentRentInfoDao.recover(item);
+        // 器材租用记录标签更新为通过
+        item.setEndTime(new Date());
+        item.setTarget(1);
+
+        Equipment equipment = equipmentDao.findEquipmentByID(equipmentRentInfo.getEid());
+        // 空器材异常
+        if(equipment == null){
+            throw new CustomizeRuntimeException(MyCustomizeErrorCode.NOT_FOND_Equipment);
+        }
+        // 器材租出数更新
+        equipment.setRentNum(equipment.getRentNum() + equipmentRentInfo.getRentNum());
+        // 器材数目异常
+        if(equipment.getDamageNum() + equipment.getRentNum() > equipment.getAllNum()){
+            throw new CustomizeRuntimeException(MyCustomizeErrorCode.Equipment_Number_Error);
+        }
+        // 器材存余数更新
+        equipment.setTotalNum(equipment.getAllNum() - equipment.getDamageNum() - equipment.getRentNum());
+        // 器材数据库更新
+        equipmentDao.updateEquipment(equipment);
+
+
+        equipmentRentInfoDao.update(item);
+    }
+
+    @Override
+    public void recover(EquipmentRentInfo equipmentRentInfo,int target) {
+        EquipmentRentInfo item =equipmentRentInfoDao.findRentInfoById(equipmentRentInfo.getId());
+        if(item == null){
+            throw new CustomizeRuntimeException(MyCustomizeErrorCode.NOT_FOND_EquipmentRentInfo);
+        }
+
+        // 器材数量增加变化处理
+
+        // 器材租用数据标签更新为通过
+        item.setEndTime(new Date());
+        item.setTarget(target);
+        item.setBrokenNum(equipmentRentInfo.getBrokenNum());
+        item.setBackNum(equipmentRentInfo.getBackNum());
+
+        Equipment equipment = equipmentDao.findEquipmentByID(equipmentRentInfo.getEid());
+        // 空器材异常
+        if(equipment == null){
+            throw new CustomizeRuntimeException(MyCustomizeErrorCode.NOT_FOND_Equipment);
+        }
+        // 器材租出数更新
+        equipment.setRentNum(equipment.getRentNum() - equipmentRentInfo.getRentNum());
+        equipment.setDamageNum(equipment.getDamageNum() + equipmentRentInfo.getBrokenNum());
+        // 器材数目异常
+        if(equipment.getRentNum() < 0 || equipment.getDamageNum() + equipment.getRentNum() > equipment.getAllNum()){
+            throw new CustomizeRuntimeException(MyCustomizeErrorCode.Equipment_Number_Error);
+        }
+        // 器材存余数更新
+        equipment.setTotalNum(equipment.getAllNum() - equipment.getDamageNum() - equipment.getRentNum());
+        // 器材数据库更新
+        equipmentDao.updateEquipment(equipment);
+        equipmentRentInfoDao.update(item);
+    }
+
+    @Override
+    public void updateTarget(int target, Long id) {
+        EquipmentRentInfo item =equipmentRentInfoDao.findRentInfoById(id);
+        if(item == null){
+            throw new CustomizeRuntimeException(MyCustomizeErrorCode.NOT_FOND_EquipmentRentInfo);
+        }
+        item.setEndTime(new Date());
+
+        equipmentRentInfoDao.updateTarget(target,id,item.getEditTime());
     }
 
     @Override

@@ -12,9 +12,9 @@ public class Equipment {
     private int rentNum;
     private int totalNum;
     private double rendStandard;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:MM")
+    @DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss")
     private Date editTime;
-    private Long sno;
+    private String sno;
 
     public Long getId() {
         return id;
@@ -72,7 +72,7 @@ public class Equipment {
         this.editTime = editTime;
     }
 
-    public Long getSno() {
+    public String getSno() {
         return sno;
     }
 
@@ -84,7 +84,7 @@ public class Equipment {
         this.rentNum = rentNum;
     }
 
-    public void setSno(Long sno) {
+    public void setSno(String sno) {
         this.sno = sno;
     }
 

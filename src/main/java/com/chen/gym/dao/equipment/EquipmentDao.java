@@ -12,14 +12,17 @@ public interface EquipmentDao {
     @Select("select * from equipment")
     List<Equipment> findALl();
 
+    @Select("SELECT * FROM `equipment` WHERE totalNum > 0")
+    List<Equipment> findALlCanRent();
+
     @Select("SELECT * FROM `equipment` WHERE id=#{id}")
     Equipment findEquipmentByID(Long id);
 
     @Select("SELECT * FROM `equipment` WHERE equipmentName=#{equipmentName}")
     Equipment findEquipmentByEquipmentName(String equipmentName);
 
-    @Insert("insert into equipment(toolKind,allNum , damageNum, rentNum, totalNum, rendStandard , editTime,sno) " +
-            "values(#{toolKind} ,#{allNum}, " +
+    @Insert("insert into equipment(equipmentName,allNum , damageNum, rentNum, totalNum, rendStandard , editTime,sno) " +
+            "values(#{equipmentName} ,#{allNum}, " +
             "#{damageNum} ,#{rentNum} , #{totalNum} , " +
             "#{rendStandard} , #{editTime}, #{sno})")
     void addEquipment(Equipment equipment);
@@ -28,7 +31,7 @@ public interface EquipmentDao {
     void deleteEquipment(Long id);
 
     @Update("UPDATE `equipment` SET " +
-            "toolKind= #{toolKind} , allNum=#{allNum} , damageNum=#{damageNum} ,rentNum=#{rentNum} , totalNum=#{totalNum} , " +
+            "equipmentName= #{equipmentName} , allNum=#{allNum} , damageNum=#{damageNum} ,rentNum=#{rentNum} , totalNum=#{totalNum} , " +
             "rendStandard=#{rendStandard} , editTime=#{editTime} , sno=#{sno} " +
             "WHERE id=#{id}")
     void updateEquipment(Equipment equipment);

@@ -12,6 +12,11 @@ public interface EquipmentService {
     List<Equipment> findAll();
 
     /**
+     * 查询所有可租借器材
+     */
+    List<Equipment> findALlCanRent();
+
+    /**
      * 多条件查询
      */
     List<Equipment> select(Equipment equipment);

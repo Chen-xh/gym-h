@@ -28,6 +28,11 @@ public class EquipmentServiceImpl implements EquipmentService {
     }
 
     @Override
+    public List<Equipment> findALlCanRent() {
+        return equipmentDao.findALlCanRent();
+    }
+
+    @Override
     public List<Equipment> select(Equipment equipment) {
         StringBuilder sql = new StringBuilder("SELECT * FROM equipment where 1=1 ");
         try {
@@ -93,6 +98,11 @@ public class EquipmentServiceImpl implements EquipmentService {
         Equipment item = equipmentDao.findEquipmentByID(equipment.getId());
         if(item == null){
             throw new CustomizeRuntimeException(MyCustomizeErrorCode.NOT_FOND_Equipment);
+        }
+
+        // 数目异常
+        if(item.getDamageNum() + item.getRentNum() > item.getAllNum()){
+            throw new CustomizeRuntimeException(MyCustomizeErrorCode.Equipment_Number_Error);
         }
 
         item.setEditTime(new Date());
