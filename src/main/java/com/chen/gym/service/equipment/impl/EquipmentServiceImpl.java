@@ -110,7 +110,7 @@ public class EquipmentServiceImpl implements EquipmentService {
         item.setRendStandard(equipment.getRendStandard());
         // 器材剩余总数处理
         item.setTotalNum(equipment.getAllNum() - equipment.getDamageNum() - equipment.getRentNum());
-        item.setSno(equipment.getSno());
+        // item.setSno(equipment.getSno());
 
         equipmentDao.updateEquipment(item);
     }
