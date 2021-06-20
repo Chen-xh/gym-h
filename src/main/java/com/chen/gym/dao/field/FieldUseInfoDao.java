@@ -3,47 +3,55 @@ package com.chen.gym.dao.field;
 import com.chen.gym.bean.FieldUseInfo;
 import org.apache.ibatis.annotations.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Mapper
 public interface FieldUseInfoDao {
-    @Select("select * from FieldUseInfoDao")
+    @Select("select * from fieldUseInfo")
     List<FieldUseInfo> findAll();
 
-    @Select("SELECT * FROM `FieldUseInfoDao` WHERE target=1")
+    @Select("SELECT * FROM `fieldUseInfo` WHERE target=0")
+    List<FieldUseInfo> findAllBePass();
+
+    @Select("SELECT * FROM `fieldUseInfo` WHERE target=1")
     List<FieldUseInfo> findAllRenting();
 
-    @Select("SELECT * FROM `FieldUseInfoDao` WHERE target=2")
-    List<FieldUseInfo> findAllInClass();
-
-    @Select("SELECT * FROM `FieldUseInfoDao` WHERE target=3")
+    @Select("SELECT * FROM `fieldUseInfo` WHERE target=5 or target = 6")
     List<FieldUseInfo> findAllRecover();
 
-    @Select("SELECT * FROM `FieldUseInfoDao` WHERE id=#{id}")
+    @Select("SELECT * FROM `fieldUseInfo` WHERE sno=#{sno}")
+    List<FieldUseInfo> findFieldUseInfoBySno(String sno);
+
+    @Select("SELECT * FROM `fieldUseInfo` WHERE id=#{id}")
     FieldUseInfo findFieldUseInfoByID(Long id);
 
-    @Insert("insert into FieldUseInfoDao(siteName, Cost , borrower, purpose, target," +
-            "borrowTime,startTime , endTime) " +
-            "values(#{siteName} ,#{Cost}, " +
-            "#{borrower} ,#{purpose} , " +
-            "#{target} ,#{borrowTime} , " +
-            "#{startTime} , #{endTime})")
+    @Select("SELECT * FROM `fieldUseInfo` WHERE target=#{target}")
+    List<FieldUseInfo> findFieldUseInfoByTarget(int target);
+
+    @Insert("insert into fieldUseInfo(siteName, fid, sno , whyToUse, target, borrowTime," +
+            "startTime,endTime ,editTime, totalMoney) " +
+            "values(#{siteName} ,#{fid} ,#{sno}, " +
+            "#{whyToUse} ,#{target} , " +
+            "#{borrowTime} ,#{startTime} , " +
+            "#{endTime} ,#{editTime} , #{totalMoney})")
     void add(FieldUseInfo fieldUseInfo);
 
-    @Update("UPDATE `FieldUseInfoDao` SET " +
-            "siteName= #{siteName} , Cost=#{Cost} , borrower=#{borrower} , " +
-            "purpose= #{purpose} , target=#{target} , borrowTime=#{borrowTime} , " +
-            "startTime= #{startTime} , endTime=#{endTime} , " +
+    @Update("UPDATE `fieldUseInfo` SET " +
+            "fid= #{fid} , sno=#{sno} , whyToUse=#{whyToUse} , " +
+            "target= #{target} , borrowTime=#{borrowTime} , startTime=#{startTime} , " +
+            "endTime= #{endTime} ,editTime= #{editTime} , totalMoney=#{totalMoney} , " +
             "WHERE id=#{id}")
     void update(FieldUseInfo fieldUseInfo);
 
-    @Delete("DELETE FROM `FieldUseInfoDao` WHERE id=#{id}")
+    @Delete("DELETE FROM `fieldUseInfo` WHERE id=#{id}")
     void delete(Long id);
 
-    @Update("UPDATE `FieldUseInfoDao` SET " +
-            "target=3 " +
+    @Update("UPDATE `fieldUseInfo` SET " +
+            "target=#{target}, " +
+            "editTime=#{editTime}, " +
             "WHERE id=#{id}")
-    void recover(Long id);
+    void updateTarget(Long id, int target, Date editTime);
 
     //使用MyProvider类的select方法来动态生成sql
     @SelectProvider(type = MyProvider.class, method = "select")

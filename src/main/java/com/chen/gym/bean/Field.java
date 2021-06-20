@@ -21,7 +21,7 @@ public class Field {
     /**
      * 添加人
      */
-    private Long userId;
+    private String sno;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     /**
      * 编辑时间
@@ -60,13 +60,6 @@ public class Field {
         this.place = place;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 
     public Date getEditTime() {
         return editTime;
@@ -76,6 +69,14 @@ public class Field {
         this.editTime = editTime;
     }
 
+    public String getSno() {
+        return sno;
+    }
+
+    public void setSno(String sno) {
+        this.sno = sno;
+    }
+
     @Override
     public String toString() {
         return "Field{" +
@@ -83,7 +84,7 @@ public class Field {
                 ", siteName='" + siteName + '\'' +
                 ", siteCost=" + siteCost +
                 ", place='" + place + '\'' +
-                ", userId=" + userId +
+                ", sno='" + sno + '\'' +
                 ", editTime=" + editTime +
                 '}';
     }

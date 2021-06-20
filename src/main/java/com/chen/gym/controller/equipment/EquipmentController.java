@@ -108,7 +108,7 @@ public class EquipmentController {
     @ApiOperation(value = "修改")
     @PostMapping("update")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "器材标识id", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "id", value = "器材标识id", required = true, paramType = "query", dataType = "String"),
             @ApiImplicitParam(name = "equipmentName", value = "器材名称（器材类型）", required = false, paramType = "query", dataType = "String"),
             @ApiImplicitParam(name = "allNum", value = "所有数量", required = false, paramType = "query", dataType = "int"),
             @ApiImplicitParam(name = "damageNum", value = "损坏或遗失数量", required = false, paramType = "query", dataType = "int"),

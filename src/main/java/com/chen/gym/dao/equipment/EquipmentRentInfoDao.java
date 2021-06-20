@@ -17,13 +17,13 @@ public interface EquipmentRentInfoDao {
     /**
      * 查询所有待回收
      */
-    @Select("SELECT * FROM `equipmentRentInfo` WHERE target=1 and target=3")
+    @Select("SELECT * FROM `equipmentRentInfo` WHERE target=1 or target=3")
     List<EquipmentRentInfo> findAllBeRecover();
 
     /**
      * 查询所有租用记录
      */
-    @Select("SELECT * FROM `equipmentRentInfo` WHERE target=4 and target=6")
+    @Select("SELECT * FROM `equipmentRentInfo` WHERE target=4 or target=6")
     List<EquipmentRentInfo> findAllRecover();
 
     /**

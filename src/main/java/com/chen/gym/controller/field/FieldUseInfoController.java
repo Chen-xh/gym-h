@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Api(tags = "场地使用信息管理接口")
@@ -21,6 +22,7 @@ import java.util.List;
 public class FieldUseInfoController {
     private static final Logger PLOG = LoggerFactory.getLogger(FieldUseInfoController.class);
 
+    @Resource
     FieldUseInfoService fieldUseInfoService;
 
     @ApiOperation(value = "条件查询场地使用记录")
@@ -28,13 +30,15 @@ public class FieldUseInfoController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "场地使用记录标识id", required = false, paramType = "query", dataType = "String"),
             @ApiImplicitParam(name = "siteName", value = "场地名称", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "cost", value = "总收费", required = false, paramType = "query", dataType = "double"),
-            @ApiImplicitParam(name = "borrower", value = "借用人", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "purpose", value = "借用用途", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "target", value = "状态标签：1、租用；2、上课；3、回收", required = false, paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = "fid", value = "场地id", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "sno", value = "借用人账号", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "whyToUse", value = "借用用途", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "target", value = "状态标签：0、待审核；1、审核通过；2、拒绝；3、上课使用；4、已回收；5、超时回收", required = false, paramType = "query", dataType = "int"),
             @ApiImplicitParam(name = "borrowTime", value = "使用总时间段数", required = false, paramType = "query", dataType = "int"),
-            @ApiImplicitParam(name = "startTime", value = "开始时间", required = false, paramType = "query", dataType = "Date"),
-            @ApiImplicitParam(name = "endTime", value = "结束时间", required = false, paramType = "query", dataType = "Date"),
+            @ApiImplicitParam(name = "startTime", value = "开始时间(YYYY-MM-dd-HH:00:00)", required = false, paramType = "query", dataType = "Date"),
+            @ApiImplicitParam(name = "endTime", value = "结束时间(YYYY-MM-dd-HH:00:00)", required = false, paramType = "query", dataType = "Date"),
+            @ApiImplicitParam(name = "editTime", value = "编辑时间", required = false, paramType = "query", dataType = "Date"),
+            @ApiImplicitParam(name = "totalMoney", value = "总金额", required = false, paramType = "query", dataType = "double"),
     })
     public JsonResult selectField(FieldUseInfo fieldUseInfo) {
         List<FieldUseInfo> list = fieldUseInfoService.select(fieldUseInfo);
@@ -53,6 +57,27 @@ public class FieldUseInfoController {
                 .addObject("FieldUseInfo", field);
     }
 
+    @ApiOperation(value = "根据借用人账号查询使用记录")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "sno", value = "借用人账号", required = true, paramType = "query", dataType = "String"),
+    })
+    @GetMapping("findFieldUseInfoBySno")
+    public JsonResult findFieldUseInfoBySno(String sno) {
+        List<FieldUseInfo> list = fieldUseInfoService.findFieldUseInfoBySno(sno);
+
+        return JsonResult.success().addObject("list", list);
+    }
+
+    @ApiOperation(value = "根据场地使用记录标签查询使用记录")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "target", value = "场地使用记录标签", required = true, paramType = "query", dataType = "String"),
+    })
+    @GetMapping("findFieldUseInfoByTarget")
+    public JsonResult findFieldUseInfoByTarget(int target) {
+        List<FieldUseInfo> list = fieldUseInfoService.findFieldUseInfoByTarget(target);
+
+        return JsonResult.success().addObject("list", list);
+    }
 
     @ApiOperation(value = "查询所有场地使用记录")
     @GetMapping("findAllField")
@@ -62,18 +87,18 @@ public class FieldUseInfoController {
         return JsonResult.success().addObject("list", list);
     }
 
-    @ApiOperation(value = "查询所有租出中场地使用记录")
-    @GetMapping("findAllRenting")
-    public JsonResult findAllRenting() {
-        List<FieldUseInfo> list = fieldUseInfoService.findAllRenting();
+    @ApiOperation(value = "查询所有待审核场地使用记录")
+    @GetMapping("findAllBePass")
+    public JsonResult findAllBePass() {
+        List<FieldUseInfo> list = fieldUseInfoService.findAllBePass();
 
         return JsonResult.success().addObject("list", list);
     }
 
-    @ApiOperation(value = "查询所有上课使用场地使用记录")
-    @GetMapping("findAllInClass")
-    public JsonResult findAllInClass() {
-        List<FieldUseInfo> list = fieldUseInfoService.findAllInClass();
+    @ApiOperation(value = "查询所有租出中场地使用记录")
+    @GetMapping("findAllBeRecover")
+    public JsonResult findAllBeRecover() {
+        List<FieldUseInfo> list = fieldUseInfoService.findAllRenting();
 
         return JsonResult.success().addObject("list", list);
     }
@@ -86,18 +111,20 @@ public class FieldUseInfoController {
         return JsonResult.success().addObject("list", list);
     }
 
-    @ApiOperation(value = "添加场地使用记录")
+    @ApiOperation(value = "普通用户预约场地")
     @PostMapping("add")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "场地使用记录标识id", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "siteName", value = "场地名称", required = true, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "cost", value = "总收费", required = true, paramType = "query", dataType = "double"),
-            @ApiImplicitParam(name = "borrower", value = "借用人", required = true, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "purpose", value = "借用用途", required = true, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "target", value = "状态标签：1、租用；2、上课；3、回收", required = true, paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = "siteName", value = "场地名称", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "fid", value = "场地id", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "sno", value = "借用人账号", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "whyToUse", value = "借用用途", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "target", value = "状态标签：0、待审核；1、审核通过；2、拒绝；3、上课使用；4、已回收；5、超时回收", required = false, paramType = "query", dataType = "int"),
             @ApiImplicitParam(name = "borrowTime", value = "使用总时间段数", required = true, paramType = "query", dataType = "int"),
-            @ApiImplicitParam(name = "startTime", value = "开始时间", required = true, paramType = "query", dataType = "Date"),
-            @ApiImplicitParam(name = "endTime", value = "结束时间", required = true, paramType = "query", dataType = "Date"),
+            @ApiImplicitParam(name = "startTime", value = "开始时间(YYYY-MM-dd-HH:00:00)", required = true, paramType = "query", dataType = "Date"),
+            @ApiImplicitParam(name = "endTime", value = "结束时间(YYYY-MM-dd-HH:00:00)", required = true, paramType = "query", dataType = "Date"),
+            @ApiImplicitParam(name = "editTime", value = "编辑时间", required = false, paramType = "query", dataType = "Date"),
+            @ApiImplicitParam(name = "totalMoney", value = "总金额", required = true, paramType = "query", dataType = "double"),
     })
     public JsonResult add(FieldUseInfo fieldUseInfo) {
         fieldUseInfoService.add(fieldUseInfo);
@@ -121,15 +148,17 @@ public class FieldUseInfoController {
     @ApiOperation(value = "修改场地使用记录")
     @PostMapping("update")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "场地使用记录标识id", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "id", value = "场地使用记录标识id", required = true, paramType = "query", dataType = "String"),
             @ApiImplicitParam(name = "siteName", value = "场地名称", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "cost", value = "总收费", required = false, paramType = "query", dataType = "double"),
-            @ApiImplicitParam(name = "borrower", value = "借用人", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "purpose", value = "借用用途", required = false, paramType = "query", dataType = "String"),
-            @ApiImplicitParam(name = "target", value = "状态标签：1、租用；2、上课；3、回收", required = false, paramType = "query", dataType = "int"),
+            @ApiImplicitParam(name = "fid", value = "场地id", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "sno", value = "借用人账号", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "whyToUse", value = "借用用途", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "target", value = "状态标签：0、待审核；1、审核通过；2、拒绝；3、上课使用；4、已回收；5、超时回收", required = false, paramType = "query", dataType = "int"),
             @ApiImplicitParam(name = "borrowTime", value = "使用总时间段数", required = false, paramType = "query", dataType = "int"),
-            @ApiImplicitParam(name = "startTime", value = "开始时间", required = false, paramType = "query", dataType = "Date"),
-            @ApiImplicitParam(name = "endTime", value = "结束时间", required = false, paramType = "query", dataType = "Date"),
+            @ApiImplicitParam(name = "startTime", value = "开始时间(YYYY-MM-dd-HH:00:00)", required = false, paramType = "query", dataType = "Date"),
+            @ApiImplicitParam(name = "endTime", value = "结束时间(YYYY-MM-dd-HH:00:00)", required = false, paramType = "query", dataType = "Date"),
+            @ApiImplicitParam(name = "editTime", value = "编辑时间", required = false, paramType = "query", dataType = "Date"),
+            @ApiImplicitParam(name = "totalMoney", value = "总金额", required = false, paramType = "query", dataType = "double"),
     })
     public JsonResult update(FieldUseInfo field) {
         fieldUseInfoService.update(field);
@@ -138,15 +167,58 @@ public class FieldUseInfoController {
 
     }
 
+    @ApiOperation(value = "通过审批")
+    @PostMapping("pass")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "场地使用记录标识id", required = true, paramType = "query", dataType = "String"),
+    })
+    public JsonResult pass(Long id) {
+        fieldUseInfoService.updateTarget(id,1);
+
+        return JsonResult.success();
+    }
+
+    @ApiOperation(value = "拒绝审批")
+    @PostMapping("reject")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "场地使用记录标识id", required = true, paramType = "query", dataType = "String"),
+    })
+    public JsonResult reject(Long id) {
+        fieldUseInfoService.updateTarget(id,2);
+
+        return JsonResult.success();
+    }
+
     @ApiOperation(value = "回收场地")
     @PostMapping("recover")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "场地使用记录标识id", required = true, paramType = "query", dataType = "String"),
     })
     public JsonResult recover(Long id) {
-        fieldUseInfoService.recover(id);
+        fieldUseInfoService.updateTarget(id,4);
 
         return JsonResult.success();
+    }
 
+    @ApiOperation(value = "超时回收场地")
+    @PostMapping("outTimeRecover")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "场地使用记录标识id", required = true, paramType = "query", dataType = "String"),
+    })
+    public JsonResult outTimeRecover(Long id) {
+        fieldUseInfoService.updateTarget(id,5);
+
+        return JsonResult.success();
+    }
+
+    @ApiOperation(value = "设置上课使用")
+    @PostMapping("setInClass")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "场地使用记录标识id", required = true, paramType = "query", dataType = "String"),
+    })
+    public JsonResult setInClass(Long id) {
+        fieldUseInfoService.updateTarget(id,3);
+
+        return JsonResult.success();
     }
 }

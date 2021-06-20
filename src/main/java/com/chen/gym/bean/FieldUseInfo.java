@@ -8,27 +8,34 @@ public class FieldUseInfo {
     private Long id;
     // 使用的场地名称
     private String siteName;
-    // 此次使用总金额
-    private double Cost;
-    // 借用者id
-    private Long borrower;
+    // 使用的场地id
+    private Long fid;
+    // 借用者账号
+    private String sno;
     // 借用用途
-    private String purpose;
+    private String whyToUse;
     /**
-     * 状态标签
-     * 1、租用中
-     * 2、上课中
-     * 3、已回收
+     * 0:待审核
+     * 1:审核通过、该时间段被租用
+     * 2:拒绝：已有其他同学提前申请导致该时间段场地已被使用
+     * 3:该时间段上课使用
+     * 4:已回收
+     * 5:超时回收
      */
     private int target;
     // 总使用时间段
     private int borrowTime;
     // 开始时间
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH")
+    @DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss")
     private Date startTime;
     // 结束时间
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH")
+    @DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss")
     private Date endTime;
+    // 该记录编辑时间
+    @DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss")
+    private Date editTime;
+    // 此次使用总金额
+    private double totalMoney;
 
     public Long getId() {
         return id;
@@ -46,28 +53,28 @@ public class FieldUseInfo {
         this.siteName = siteName;
     }
 
-    public double getCost() {
-        return Cost;
+    public Long getFid() {
+        return fid;
     }
 
-    public void setCost(double cost) {
-        Cost = cost;
+    public void setFid(Long fid) {
+        this.fid = fid;
     }
 
-    public Long getBorrower() {
-        return borrower;
+    public String getSno() {
+        return sno;
     }
 
-    public void setBorrower(Long borrower) {
-        this.borrower = borrower;
+    public void setSno(String sno) {
+        this.sno = sno;
     }
 
-    public String getPurpose() {
-        return purpose;
+    public String getWhyToUse() {
+        return whyToUse;
     }
 
-    public void setPurpose(String purpose) {
-        this.purpose = purpose;
+    public void setWhyToUse(String whyToUse) {
+        this.whyToUse = whyToUse;
     }
 
     public int getTarget() {
@@ -102,18 +109,36 @@ public class FieldUseInfo {
         this.endTime = endTime;
     }
 
+    public Date getEditTime() {
+        return editTime;
+    }
+
+    public void setEditTime(Date editTime) {
+        this.editTime = editTime;
+    }
+
+    public double getTotalMoney() {
+        return totalMoney;
+    }
+
+    public void setTotalMoney(double totalMoney) {
+        this.totalMoney = totalMoney;
+    }
+
     @Override
     public String toString() {
         return "FieldUseInfo{" +
                 "id=" + id +
                 ", siteName='" + siteName + '\'' +
-                ", Cost=" + Cost +
-                ", borrower=" + borrower +
-                ", purpose='" + purpose + '\'' +
+                ", fid=" + fid +
+                ", sno='" + sno + '\'' +
+                ", whyToUse='" + whyToUse + '\'' +
                 ", target=" + target +
                 ", borrowTime=" + borrowTime +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
+                ", editTime=" + editTime +
+                ", totalMoney=" + totalMoney +
                 '}';
     }
 }

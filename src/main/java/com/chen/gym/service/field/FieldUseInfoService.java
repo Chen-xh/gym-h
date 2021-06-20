@@ -2,6 +2,7 @@ package com.chen.gym.service.field;
 
 import com.chen.gym.bean.FieldUseInfo;
 
+import java.util.Date;
 import java.util.List;
 
 public interface FieldUseInfoService {
@@ -11,14 +12,14 @@ public interface FieldUseInfoService {
     List<FieldUseInfo> findAll();
 
     /**
+     * 查询所有待审核状态的场地使用信息
+     */
+    List<FieldUseInfo> findAllBePass();
+
+    /**
      * 查询所有租出场地使用信息
      */
     List<FieldUseInfo> findAllRenting();
-
-    /**
-     * 查询所有上课使用场地使用信息
-     */
-    List<FieldUseInfo> findAllInClass();
 
     /**
      * 查询所有已回收场地使用信息
@@ -26,9 +27,19 @@ public interface FieldUseInfoService {
     List<FieldUseInfo> findAllRecover();
 
     /**
+     * 通过用户账号查询场地使用信息
+     */
+    List<FieldUseInfo> findFieldUseInfoBySno(String sno);
+
+    /**
      * 通过id查询场地使用信息
      */
     FieldUseInfo findFieldUseInfoByID(Long id);
+
+    /**
+     * 通过记录状态标签查询场地使用信息
+     */
+    List<FieldUseInfo> findFieldUseInfoByTarget(int target);
 
     /**
      * 添加场地使用信息
@@ -46,9 +57,9 @@ public interface FieldUseInfoService {
     void delete(Long id);
 
     /**
-     * 回收场地使用信息
+     * 更新标签标识
      */
-    void recover(Long id);
+    void updateTarget(Long id, int target);
 
     /**
      * 多条件查询使用信息

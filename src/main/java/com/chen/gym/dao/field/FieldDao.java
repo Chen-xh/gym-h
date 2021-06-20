@@ -16,9 +16,9 @@ public interface FieldDao {
     @Select("SELECT * FROM `field` WHERE siteName=#{siteName}")
     Field findFieldByName(String siteName);
 
-    @Insert("insert into field(siteName,siteCost , place, userId, editTime) " +
+    @Insert("insert into field(siteName,siteCost , place, sno, editTime) " +
             "values(#{siteName} ,#{siteCost}, " +
-            "#{place} ,#{userId} , " +
+            "#{place} ,#{sno} , " +
             "#{editTime})")
     void addField(Field field);
 
@@ -27,7 +27,7 @@ public interface FieldDao {
 
     @Update("UPDATE `field` SET " +
             "siteName= #{siteName} , siteCost=#{siteCost} , place=#{place} ," +
-            "userId=#{userId} , editTime=#{editTime} " +
+            "sno=#{sno} , editTime=#{editTime} " +
             "WHERE id=#{id}")
     void updateField(Field field);
 

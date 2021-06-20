@@ -37,7 +37,7 @@ public class FieldServiceImpl implements FieldService {
     @Override
     public void addField(Field field) {
         Field item = fieldDao.findFieldByName(field.getSiteName());
-        if(item == null){
+        if(item != null){
             throw new CustomizeRuntimeException(MyCustomizeErrorCode.FIELD_EXIST);
         }
         field.setEditTime(new Date());
@@ -65,7 +65,7 @@ public class FieldServiceImpl implements FieldService {
         item.setPlace(field.getPlace());
         item.setSiteCost(field.getSiteCost());
         item.setSiteName(field.getSiteName());
-        item.setUserId(field.getUserId());
+        item.setSno(field.getSno());
 
         fieldDao.updateField(item);
     }

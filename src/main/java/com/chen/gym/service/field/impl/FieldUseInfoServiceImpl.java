@@ -1,5 +1,6 @@
 package com.chen.gym.service.field.impl;
 
+import com.chen.gym.bean.Field;
 import com.chen.gym.bean.FieldUseInfo;
 import com.chen.gym.dao.field.FieldDao;
 import com.chen.gym.dao.field.FieldUseInfoDao;
@@ -18,6 +19,8 @@ import java.util.List;
 public class FieldUseInfoServiceImpl implements FieldUseInfoService {
     @Resource
     private FieldUseInfoDao fieldUseInfoDao;
+    @Resource
+    private FieldDao fieldDao;
 
     private static final Logger PLOG = LoggerFactory.getLogger(FieldUseInfoServiceImpl.class);
 
@@ -27,18 +30,24 @@ public class FieldUseInfoServiceImpl implements FieldUseInfoService {
     }
 
     @Override
+    public List<FieldUseInfo> findAllBePass() {
+        return fieldUseInfoDao.findAllBePass();
+    }
+
+    @Override
     public List<FieldUseInfo> findAllRenting() {
         return fieldUseInfoDao.findAllRenting();
     }
 
-    @Override
-    public List<FieldUseInfo> findAllInClass() {
-        return fieldUseInfoDao.findAllInClass();
-    }
 
     @Override
     public List<FieldUseInfo> findAllRecover() {
         return fieldUseInfoDao.findAllRecover();
+    }
+
+    @Override
+    public List<FieldUseInfo> findFieldUseInfoBySno(String sno) {
+        return fieldUseInfoDao.findFieldUseInfoBySno(sno);
     }
 
     @Override
@@ -51,7 +60,19 @@ public class FieldUseInfoServiceImpl implements FieldUseInfoService {
     }
 
     @Override
+    public List<FieldUseInfo> findFieldUseInfoByTarget(int target) {
+        return fieldUseInfoDao.findFieldUseInfoByTarget(target);
+    }
+
+    @Override
     public void add(FieldUseInfo fieldUseInfo) {
+        fieldUseInfo.setEditTime(new Date());
+        fieldUseInfo.setTarget(0);
+        Field item = fieldDao.findFieldByID(fieldUseInfo.getFid());
+        if(item == null){
+            throw new CustomizeRuntimeException(MyCustomizeErrorCode.FIELD_EXIST);
+        }
+        fieldUseInfo.setSiteName(item.getSiteName());
         fieldUseInfoDao.add(fieldUseInfo);
     }
 
@@ -62,14 +83,16 @@ public class FieldUseInfoServiceImpl implements FieldUseInfoService {
             throw new CustomizeRuntimeException(MyCustomizeErrorCode.NOT_FOND_FieldUseInfo);
         }
 
-        item.setBorrower(fieldUseInfo.getBorrower());
-        item.setBorrowTime(fieldUseInfo.getBorrowTime());
-        item.setCost(fieldUseInfo.getCost());
-        item.setEndTime(fieldUseInfo.getEndTime());
-        item.setPurpose(fieldUseInfo.getPurpose());
         item.setSiteName(fieldUseInfo.getSiteName());
-        item.setStartTime(fieldUseInfo.getStartTime());
+        item.setFid(fieldUseInfo.getFid());
+        item.setSno(fieldUseInfo.getSno());
+        item.setWhyToUse(fieldUseInfo.getWhyToUse());
         item.setTarget(fieldUseInfo.getTarget());
+        item.setBorrowTime(fieldUseInfo.getBorrowTime());
+        item.setStartTime(fieldUseInfo.getStartTime());
+        item.setEndTime(fieldUseInfo.getEndTime());
+        item.setEditTime(new Date());
+        item.setTotalMoney(fieldUseInfo.getTotalMoney());
 
         fieldUseInfoDao.update(item);
     }
@@ -84,14 +107,10 @@ public class FieldUseInfoServiceImpl implements FieldUseInfoService {
     }
 
     @Override
-    public void recover(Long id) {
-        FieldUseInfo item = fieldUseInfoDao.findFieldUseInfoByID(id);
-        if(item == null){
-            throw new CustomizeRuntimeException(MyCustomizeErrorCode.NOT_FOND_FieldUseInfo);
-        }
-
-        fieldUseInfoDao.recover(id);
+    public void updateTarget(Long id, int target) {
+        fieldUseInfoDao.updateTarget(id, target,new Date());
     }
+
 
     @Override
     public List<FieldUseInfo> select(FieldUseInfo fieldUseInfo) {
