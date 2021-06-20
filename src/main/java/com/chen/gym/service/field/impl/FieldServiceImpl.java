@@ -26,21 +26,6 @@ public class FieldServiceImpl implements FieldService {
     }
 
     @Override
-    public List<Field> findAllInClass() {
-        return fieldDao.findAllInClass();
-    }
-
-    @Override
-    public List<Field> findAllRenting() {
-        return fieldDao.findAllRenting();
-    }
-
-    @Override
-    public List<Field> findAllIdle() {
-        return fieldDao.findAllIdle();
-    }
-
-    @Override
     public Field findFieldByID(Long id) {
         Field field = fieldDao.findFieldByID(id);
         if(field == null){
@@ -77,41 +62,7 @@ public class FieldServiceImpl implements FieldService {
         item.setSiteCost(field.getSiteCost());
         item.setSiteName(field.getSiteName());
         item.setUserId(field.getUserId());
-        item.setSiteSituation(field.getSiteSituation());
 
-        fieldDao.updateField(item);
-    }
-
-    @Override
-    public void setFieldRenting(Field field) {
-        Field item = fieldDao.findFieldByID(field.getID());
-        if(item == null){
-            throw new CustomizeRuntimeException(MyCustomizeErrorCode.NOT_FOND_Field);
-        }
-
-        item.setSiteSituation(3);
-        fieldDao.updateField(item);
-    }
-
-    @Override
-    public void setFieldIdle(Field field) {
-        Field item = fieldDao.findFieldByID(field.getID());
-        if(item == null){
-            throw new CustomizeRuntimeException(MyCustomizeErrorCode.NOT_FOND_Field);
-        }
-
-        item.setSiteSituation(1);
-        fieldDao.updateField(item);
-    }
-
-    @Override
-    public void setFieldInClass(Field field) {
-        Field item = fieldDao.findFieldByID(field.getID());
-        if(item == null){
-            throw new CustomizeRuntimeException(MyCustomizeErrorCode.NOT_FOND_Field);
-        }
-
-        item.setSiteSituation(2);
         fieldDao.updateField(item);
     }
 

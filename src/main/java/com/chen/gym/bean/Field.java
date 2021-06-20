@@ -27,13 +27,6 @@ public class Field {
      * 编辑时间
      */
     private Date editTime;
-    /**
-     * 场地租用情况
-     * 1、空闲
-     * 2、上课使用
-     * 3、已经租出
-     */
-    private int siteSituation;
 
     public Long getID() {
         return ID;
@@ -83,14 +76,6 @@ public class Field {
         this.editTime = editTime;
     }
 
-    public int getSiteSituation() {
-        return siteSituation;
-    }
-
-    public void setSiteSituation(int siteSituation) {
-        this.siteSituation = siteSituation;
-    }
-
     @Override
     public String toString() {
         return "Field{" +
@@ -100,7 +85,6 @@ public class Field {
                 ", place='" + place + '\'' +
                 ", userId=" + userId +
                 ", editTime=" + editTime +
-                ", siteSituation=" + siteSituation +
                 '}';
     }
 }

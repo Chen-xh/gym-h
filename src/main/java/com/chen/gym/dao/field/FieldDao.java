@@ -10,22 +10,13 @@ public interface FieldDao {
     @Select("select * from field")
     List<Field> findAll();
 
-    @Select("SELECT * FROM `field` WHERE siteSituation=2")
-    List<Field> findAllInClass();
-
-    @Select("SELECT * FROM `field` WHERE siteSituation=3")
-    List<Field> findAllRenting();
-
-    @Select("SELECT * FROM `field` WHERE siteSituation=1")
-    List<Field> findAllIdle();
-
     @Select("SELECT * FROM `field` WHERE id=#{id}")
     Field findFieldByID(Long id);
 
-    @Insert("insert into field(siteName,siteCost , place, userId, editTime,siteSituation) " +
+    @Insert("insert into field(siteName,siteCost , place, userId, editTime) " +
             "values(#{siteName} ,#{siteCost}, " +
             "#{place} ,#{userId} , " +
-            "#{editTime} , 1)")
+            "#{editTime})")
     void addField(Field field);
 
     @Delete("DELETE FROM `field` WHERE id=#{id}")
@@ -33,7 +24,7 @@ public interface FieldDao {
 
     @Update("UPDATE `field` SET " +
             "siteName= #{siteName} , siteCost=#{siteCost} , place=#{place} ," +
-            "userId=#{userId} , editTime=#{editTime} , siteSituation=#{siteSituation} " +
+            "userId=#{userId} , editTime=#{editTime} " +
             "WHERE id=#{id}")
     void updateField(Field field);
 

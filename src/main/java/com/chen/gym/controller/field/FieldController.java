@@ -38,7 +38,6 @@ public class FieldController {
             @ApiImplicitParam(name = "place", value = "场地具体地址", required = false, paramType = "query", dataType = "String"),
             @ApiImplicitParam(name = "userId", value = "编辑人", required = false, paramType = "query", dataType = "String"),
             @ApiImplicitParam(name = "editTime", value = "编辑时间", required = false, paramType = "query", dataType = "Date"),
-            @ApiImplicitParam(name = "siteSituation", value = "场地状态", required = false, paramType = "query", dataType = "int"),
     })
     public JsonResult selectField(Field field) {
         List<Field> list = fieldService.select(field);
@@ -67,30 +66,6 @@ public class FieldController {
         return JsonResult.success().addObject("list", list);
     }
 
-    @ApiOperation(value = "查询所有空闲场地")
-    @GetMapping("findAllIdle")
-    public JsonResult findAllIdle() {
-        List<Field> list = fieldService.findAllIdle();
-
-        return JsonResult.success().addObject("list", list);
-    }
-
-    @ApiOperation(value = "查询所有上课使用场地")
-    @GetMapping("findAllInClass")
-    public JsonResult findAllInClass() {
-        List<Field> list = fieldService.findAllInClass();
-
-        return JsonResult.success().addObject("list", list);
-    }
-
-    @ApiOperation(value = "查询所有租出场地")
-    @GetMapping("findAllRenting")
-    public JsonResult findAllRenting() {
-        List<Field> list = fieldService.findAllRenting();
-
-        return JsonResult.success().addObject("list", list);
-    }
-
     @ApiOperation(value = "添加场地")
     @PostMapping("addField")
     @ApiImplicitParams({
@@ -100,7 +75,6 @@ public class FieldController {
             @ApiImplicitParam(name = "place", value = "场地具体地址", required = true, paramType = "query", dataType = "String"),
             @ApiImplicitParam(name = "userId", value = "编辑人", required = true, paramType = "query", dataType = "String"),
             @ApiImplicitParam(name = "editTime", value = "编辑时间", required = false, paramType = "query", dataType = "Date"),
-            @ApiImplicitParam(name = "siteSituation", value = "场地状态", required = false, paramType = "query", dataType = "int"),
     })
     public JsonResult addField(Field field) {
         fieldService.addField(field);
@@ -127,37 +101,9 @@ public class FieldController {
             @ApiImplicitParam(name = "place", value = "场地具体地址", required = false, paramType = "query", dataType = "String"),
             @ApiImplicitParam(name = "userId", value = "编辑人", required = false, paramType = "query", dataType = "String"),
             @ApiImplicitParam(name = "editTime", value = "编辑时间", required = false, paramType = "query", dataType = "Date"),
-            @ApiImplicitParam(name = "siteSituation", value = "场地状态", required = false, paramType = "query", dataType = "int"),
     })
     public JsonResult update(Field field) {
         fieldService.updateField(field);
-
-        return JsonResult.success();
-
-    }
-
-    @ApiOperation(value = "设置场地为租借中")
-    @PostMapping("setFieldRenting")
-    public JsonResult setFieldRenting(Field field) {
-        fieldService.setFieldRenting(field);
-
-        return JsonResult.success();
-
-    }
-
-    @ApiOperation(value = "设置场地为空闲中")
-    @PostMapping("setFieldIdle")
-    public JsonResult setFieldIdle(Field field) {
-        fieldService.setFieldIdle(field);
-
-        return JsonResult.success();
-
-    }
-
-    @ApiOperation(value = "设置场地为上课中")
-    @PostMapping("setFieldInClass")
-    public JsonResult setFieldInClass(Field field) {
-        fieldService.setFieldInClass(field);
 
         return JsonResult.success();
 
