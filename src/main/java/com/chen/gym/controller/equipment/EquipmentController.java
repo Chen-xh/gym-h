@@ -127,7 +127,7 @@ public class EquipmentController {
     @ApiOperation(value = "获取所有器材名称（器材类型）")
     @PostMapping("getAllKind")
     public JsonResult getAllKind() {
-        equipmentService.getAllKind();
-        return JsonResult.success();
+        List list = equipmentService.getAllKind();
+        return JsonResult.success().addObject("list", list);
     }
 }
