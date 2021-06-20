@@ -1,7 +1,9 @@
 package com.chen.gym.service.field;
 
 import com.chen.gym.bean.Field;
+import com.chen.gym.bean.FieldUseInfo;
 
+import java.util.Date;
 import java.util.List;
 
 public interface FieldService {
@@ -9,6 +11,11 @@ public interface FieldService {
      * 查找全部场地
      */
     List<Field> findAll();
+
+    /**
+     * 查找全部可租用场地
+     */
+    List<Field> findAllCanUse(FieldUseInfo fieldUseInfo);
 
     /**
      * 根据ID查找查各地

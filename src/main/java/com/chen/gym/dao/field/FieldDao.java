@@ -3,6 +3,7 @@ package com.chen.gym.dao.field;
 import com.chen.gym.bean.Field;
 import org.apache.ibatis.annotations.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Mapper
@@ -15,6 +16,9 @@ public interface FieldDao {
 
     @Select("SELECT * FROM `field` WHERE siteName=#{siteName}")
     Field findFieldByName(String siteName);
+
+    @Select("select * from field where id in (select id from fieldUseInfo where startTime > #{endTime} or endTime < #{startTime})")
+    List<Field> findAllCanUse(Date startTime, Date endTime);
 
     @Insert("insert into field(siteName,siteCost , place, sno, editTime) " +
             "values(#{siteName} ,#{siteCost}, " +

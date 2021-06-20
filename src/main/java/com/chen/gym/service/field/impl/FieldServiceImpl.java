@@ -1,6 +1,7 @@
 package com.chen.gym.service.field.impl;
 
 import com.chen.gym.bean.Field;
+import com.chen.gym.bean.FieldUseInfo;
 import com.chen.gym.dao.field.FieldDao;
 import com.chen.gym.exception.CustomizeRuntimeException;
 import com.chen.gym.exception.MyCustomizeErrorCode;
@@ -23,6 +24,11 @@ public class FieldServiceImpl implements FieldService {
     @Override
     public List<Field> findAll() {
         return fieldDao.findAll();
+    }
+
+    @Override
+    public List<Field> findAllCanUse(FieldUseInfo fieldUseInfo) {
+        return fieldDao.findAllCanUse(fieldUseInfo.getStartTime(),fieldUseInfo.getEndTime());
     }
 
     @Override

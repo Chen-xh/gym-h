@@ -2,6 +2,7 @@ package com.chen.gym.controller.field;
 
 import com.chen.gym.bean.Equipment;
 import com.chen.gym.bean.Field;
+import com.chen.gym.bean.FieldUseInfo;
 import com.chen.gym.service.field.FieldService;
 import com.chen.gym.util.JsonResult;
 import io.swagger.annotations.Api;
@@ -41,6 +42,17 @@ public class FieldController {
     })
     public JsonResult selectField(Field field) {
         List<Field> list = fieldService.select(field);
+        return JsonResult.success().addObject("list", list);
+    }
+
+    @ApiOperation(value = "条件查询场地")
+    @PostMapping("findAllCanUse")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "startTime", value = "开始时间(YYYY-MM-dd-HH:00:00)", required = false, paramType = "query", dataType = "Date"),
+            @ApiImplicitParam(name = "endTime", value = "结束时间(YYYY-MM-dd-HH:00:00)", required = false, paramType = "query", dataType = "Date"),
+    })
+    public JsonResult findAllCanUse(FieldUseInfo fieldUseInfo) {
+        List<Field> list = fieldService.findAllCanUse(fieldUseInfo);
         return JsonResult.success().addObject("list", list);
     }
 
