@@ -13,6 +13,9 @@ public interface FieldDao {
     @Select("SELECT * FROM `field` WHERE id=#{id}")
     Field findFieldByID(Long id);
 
+    @Select("SELECT * FROM `field` WHERE siteName=#{siteName}")
+    Field findFieldByName(String siteName);
+
     @Insert("insert into field(siteName,siteCost , place, userId, editTime) " +
             "values(#{siteName} ,#{siteCost}, " +
             "#{place} ,#{userId} , " +

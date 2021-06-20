@@ -36,6 +36,10 @@ public class FieldServiceImpl implements FieldService {
 
     @Override
     public void addField(Field field) {
+        Field item = fieldDao.findFieldByName(field.getSiteName());
+        if(item == null){
+            throw new CustomizeRuntimeException(MyCustomizeErrorCode.FIELD_EXIST);
+        }
         field.setEditTime(new Date());
         fieldDao.addField(field);
     }

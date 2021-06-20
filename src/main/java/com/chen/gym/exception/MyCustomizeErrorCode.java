@@ -45,6 +45,10 @@ public enum MyCustomizeErrorCode implements CustomizeErrorCode {
      * 2009:器材数目异常!
      */
     Equipment_Number_Error(2009,"器材数目异常!"),
+    /**
+     * 2010:场地已存在!
+     */
+    FIELD_EXIST(2010,"场地已存在!"),
 
     /**
      * 3001:尚未登录!
