@@ -107,10 +107,7 @@ public class EquipmentServiceImpl implements EquipmentService {
 
         item.setEditTime(new Date());
         item.setAllNum(equipment.getAllNum());
-        item.setDamageNum(equipment.getDamageNum());
         item.setRendStandard(equipment.getRendStandard());
-        item.setRentNum(equipment.getRentNum());
-        item.setEquipmentName(equipment.getEquipmentName());
         // 器材剩余总数处理
         item.setTotalNum(equipment.getAllNum() - equipment.getDamageNum() - equipment.getRentNum());
         item.setSno(equipment.getSno());
