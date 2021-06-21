@@ -1,5 +1,6 @@
 package com.chen.gym.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -13,6 +14,7 @@ public class Equipment {
     private int totalNum;
     private double rendStandard;
     @DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd-HH:mm:ss",timezone="GMT+8")
     private Date editTime;
     private String sno;
 

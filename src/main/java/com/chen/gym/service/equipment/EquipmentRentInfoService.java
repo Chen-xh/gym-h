@@ -43,7 +43,7 @@ public interface EquipmentRentInfoService {
     /**
      * 通过审批
      */
-    void passRequire(EquipmentRentInfo equipmentRentInfo);
+    void passRequire(Long id);
 
     /**
      * 回收器材

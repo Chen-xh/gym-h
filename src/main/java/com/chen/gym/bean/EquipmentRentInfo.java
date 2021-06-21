@@ -1,5 +1,6 @@
 package com.chen.gym.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -8,11 +9,14 @@ public class EquipmentRentInfo {
     private Long id;
     private int rentNum;
     @DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd-HH:mm:ss",timezone="GMT+8")
     private Date startTime;
     @DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd-HH:mm:ss",timezone="GMT+8")
     private Date endTime;
     // 用户提出申请时间
     @DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd-HH:mm:ss",timezone="GMT+8")
     private Date requireTime;
     /**
      * 借用课时数
@@ -39,7 +43,8 @@ public class EquipmentRentInfo {
     /**
      * 管理员审批/编辑时间
      */
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd-HH:mm:ss",timezone="GMT+8")
     private Date editTime;
     /**
      * 损坏或遗失数（初始为0 回收时赋值）

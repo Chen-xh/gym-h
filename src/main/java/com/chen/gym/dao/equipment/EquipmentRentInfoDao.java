@@ -73,7 +73,7 @@ public interface EquipmentRentInfoDao {
      */
     @Update("UPDATE `equipmentRentInfo` SET " +
             "target=#{target}," +
-            "editTime=#{editTime}" +
+            "editTime=#{editTime} " +
             "WHERE id=#{id}")
     void updateTarget(int target, Long id, Date editTime);
 

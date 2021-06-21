@@ -81,6 +81,8 @@ public class EquipmentServiceImpl implements EquipmentService {
         equipment.setDamageNum(0);
         equipment.setEditTime(new Date());
 
+        System.out.println("test : " + equipment);
+
         equipmentDao.addEquipment(equipment);
     }
 

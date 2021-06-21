@@ -1,5 +1,6 @@
 package com.chen.gym.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -27,12 +28,15 @@ public class FieldUseInfo {
     private int borrowTime;
     // 开始时间
     @DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd-HH:mm:ss",timezone="GMT+8")
     private Date startTime;
     // 结束时间
     @DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd-HH:mm:ss",timezone="GMT+8")
     private Date endTime;
     // 该记录编辑时间
     @DateTimeFormat(pattern = "yyyy-MM-dd-HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd-HH:mm:ss",timezone="GMT+8")
     private Date editTime;
     // 此次使用总金额
     private double totalMoney;

@@ -67,12 +67,13 @@ public class EquipmentRentInfoServiceImpl implements EquipmentRentInfoService {
         equipmentRentInfo.setRequireTime(new Date());
         equipmentRentInfo.setTarget(0);
 
+        System.out.println("add EquipmentRentInfo test : " + equipmentRentInfo);
         equipmentRentInfoDao.add(equipmentRentInfo);
     }
 
     @Override
-    public void passRequire(EquipmentRentInfo equipmentRentInfo) {
-        EquipmentRentInfo item =equipmentRentInfoDao.findRentInfoById(equipmentRentInfo.getId());
+    public void passRequire(Long id) {
+        EquipmentRentInfo item =equipmentRentInfoDao.findRentInfoById(id);
         if(item == null){
             throw new CustomizeRuntimeException(MyCustomizeErrorCode.NOT_FOND_EquipmentRentInfo);
         }
@@ -83,13 +84,13 @@ public class EquipmentRentInfoServiceImpl implements EquipmentRentInfoService {
         item.setEndTime(new Date());
         item.setTarget(1);
 
-        Equipment equipment = equipmentDao.findEquipmentByID(equipmentRentInfo.getEid());
+        Equipment equipment = equipmentDao.findEquipmentByID(item.getEid());
         // 空器材异常
         if(equipment == null){
             throw new CustomizeRuntimeException(MyCustomizeErrorCode.NOT_FOND_Equipment);
         }
         // 器材租出数更新
-        equipment.setRentNum(equipment.getRentNum() + equipmentRentInfo.getRentNum());
+        equipment.setRentNum(equipment.getRentNum() + item.getRentNum());
         // 器材数目异常
         if(equipment.getDamageNum() + equipment.getRentNum() > equipment.getAllNum()){
             throw new CustomizeRuntimeException(MyCustomizeErrorCode.Equipment_Number_Error);
@@ -124,8 +125,8 @@ public class EquipmentRentInfoServiceImpl implements EquipmentRentInfoService {
             throw new CustomizeRuntimeException(MyCustomizeErrorCode.NOT_FOND_Equipment);
         }
         // 器材租出数更新
-        equipment.setRentNum(equipment.getRentNum() - equipmentRentInfo.getRentNum());
-        equipment.setDamageNum(equipment.getDamageNum() + equipmentRentInfo.getBrokenNum());
+        equipment.setRentNum(equipment.getRentNum() - item.getRentNum());
+        equipment.setDamageNum(equipment.getDamageNum() + item.getBrokenNum());
         // 器材数目异常
         if(equipment.getRentNum() < 0 || equipment.getDamageNum() + equipment.getRentNum() > equipment.getAllNum()){
             throw new CustomizeRuntimeException(MyCustomizeErrorCode.Equipment_Number_Error);
@@ -143,7 +144,7 @@ public class EquipmentRentInfoServiceImpl implements EquipmentRentInfoService {
         if(item == null){
             throw new CustomizeRuntimeException(MyCustomizeErrorCode.NOT_FOND_EquipmentRentInfo);
         }
-        item.setEndTime(new Date());
+        item.setEditTime(new Date());
 
         equipmentRentInfoDao.updateTarget(target,id,item.getEditTime());
     }

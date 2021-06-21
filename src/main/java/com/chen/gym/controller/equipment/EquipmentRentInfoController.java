@@ -157,7 +157,8 @@ public class EquipmentRentInfoController {
             @ApiImplicitParam(name = "id",value = "器材租用记录标识ID", required = true, paramType = "query", dataType = "String"),
     })
     public JsonResult pass(Long id) {
-        equipmentRentInfoService.updateTarget(1,id);
+
+        equipmentRentInfoService.passRequire(id);
 
         return JsonResult.success();
     }

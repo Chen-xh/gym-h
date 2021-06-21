@@ -95,7 +95,7 @@ public class EquipmentController {
     }
 
     @ApiOperation(value = "删除")
-    @DeleteMapping("delete")
+    @GetMapping("delete")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "器材标识id", required = true, paramType = "query", dataType = "String"),
     })
