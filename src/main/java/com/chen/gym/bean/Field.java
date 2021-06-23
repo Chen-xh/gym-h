@@ -5,7 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 public class Field {
-    private Long ID;
+    private Long id;
     /**
      * 场地名称
      */
@@ -28,12 +28,12 @@ public class Field {
      */
     private Date editTime;
 
-    public Long getID() {
-        return ID;
+    public Long getId() {
+        return id;
     }
 
-    public void setID(Long ID) {
-        this.ID = ID;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getSiteName() {
@@ -80,7 +80,7 @@ public class Field {
     @Override
     public String toString() {
         return "Field{" +
-                "ID=" + ID +
+                "id=" + id +
                 ", siteName='" + siteName + '\'' +
                 ", siteCost=" + siteCost +
                 ", place='" + place + '\'' +

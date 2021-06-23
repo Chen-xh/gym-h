@@ -49,7 +49,7 @@ public interface FieldUseInfoDao {
 
     @Update("UPDATE `fieldUseInfo` SET " +
             "target=#{target}, " +
-            "editTime=#{editTime}, " +
+            "editTime=#{editTime} " +
             "WHERE id=#{id}")
     void updateTarget(Long id, int target, Date editTime);
 

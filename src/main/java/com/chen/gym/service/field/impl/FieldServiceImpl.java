@@ -61,13 +61,13 @@ public class FieldServiceImpl implements FieldService {
 
     @Override
     public void updateField(Field field) {
-        Field item = fieldDao.findFieldByID(field.getID());
+        Field item = fieldDao.findFieldByID(field.getId());
         if(item == null){
             throw new CustomizeRuntimeException(MyCustomizeErrorCode.NOT_FOND_Field);
         }
 
         item.setEditTime(new Date());
-        item.setID(field.getID());
+        item.setId(field.getId());
         item.setPlace(field.getPlace());
         item.setSiteCost(field.getSiteCost());
         item.setSiteName(field.getSiteName());

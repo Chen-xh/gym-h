@@ -107,7 +107,7 @@ public class FieldController {
     @ApiOperation(value = "修改场地")
     @PostMapping("update")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "场地标识id", required = false, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "id", value = "场地标识id", required = false, paramType = "query", dataType = "int"),
             @ApiImplicitParam(name = "siteName", value = "场地名称", required = false, paramType = "query", dataType = "String"),
             @ApiImplicitParam(name = "siteCost", value = "收费标准", required = false, paramType = "query", dataType = "double"),
             @ApiImplicitParam(name = "place", value = "场地具体地址", required = false, paramType = "query", dataType = "String"),

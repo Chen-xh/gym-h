@@ -17,7 +17,10 @@ public interface FieldDao {
     @Select("SELECT * FROM `field` WHERE siteName=#{siteName}")
     Field findFieldByName(String siteName);
 
-    @Select("select * from field where id in (select id from fieldUseInfo where startTime > #{endTime} or endTime < #{startTime})")
+    @Select("select * from field where id not in " +
+            "(select fid from fieldUseInfo where " +
+            "(startTime >= #{startTime} and startTime <= #{endTime}) or " +
+            "(endTime <= #{endTime} and endTime >= #{startTime}))")
     List<Field> findAllCanUse(Date startTime, Date endTime);
 
     @Insert("insert into field(siteName,siteCost , place, sno, editTime) " +

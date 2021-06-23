@@ -62,6 +62,11 @@ public interface FieldUseInfoService {
     void updateTarget(Long id, int target);
 
     /**
+     * 添加上课场地
+     */
+    void setInClass(FieldUseInfo fieldUseInfo);
+
+    /**
      * 多条件查询使用信息
      */
     List<FieldUseInfo> select(FieldUseInfo fieldUseInfo);

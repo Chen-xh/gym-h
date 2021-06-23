@@ -108,7 +108,24 @@ public class FieldUseInfoServiceImpl implements FieldUseInfoService {
 
     @Override
     public void updateTarget(Long id, int target) {
-        fieldUseInfoDao.updateTarget(id, target,new Date());
+        FieldUseInfo fieldUseInfo = new FieldUseInfo();
+        fieldUseInfo.setEditTime(new Date());
+        fieldUseInfoDao.updateTarget(id, target,fieldUseInfo.getEditTime());
+    }
+
+    @Override
+    public void setInClass(FieldUseInfo fieldUseInfo) {
+        fieldUseInfo.setEditTime(new Date());
+        fieldUseInfo.setTarget(3);
+        fieldUseInfo.setTotalMoney(0);
+        fieldUseInfo.setWhyToUse("上课");
+        Field item = fieldDao.findFieldByID(fieldUseInfo.getFid());
+        if(item == null){
+            throw new CustomizeRuntimeException(MyCustomizeErrorCode.FIELD_EXIST);
+        }
+        fieldUseInfo.setSiteName(item.getSiteName());
+
+        fieldUseInfoDao.add(fieldUseInfo);
     }
 
 
