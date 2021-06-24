@@ -45,6 +45,7 @@ public class LoginController {
         Map<String,Object> map= userService.login(username,password);
 
         return JsonResult.success()
+                .addObject("userId", map.get("userId"))
                 .addObject("token", map.get("token"))
                 .addObject("roles",  map.get("roles"));
     }

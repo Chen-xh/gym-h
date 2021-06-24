@@ -16,7 +16,7 @@ import java.text.ParseException;
  * @author CHEN
  * @date 2020/10/13  18:28
  */
-//@RestControllerAdvice
+@RestControllerAdvice
 public class MyCustomizeExceptionHandler {
 
     @ExceptionHandler(CustomRealm.CustomizeAuthenticationException.class)
