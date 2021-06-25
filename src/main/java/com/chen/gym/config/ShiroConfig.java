@@ -53,12 +53,12 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/error/**", "anon");
         filterChainDefinitionMap.put("/static/**", "anon");
         // 拦截接口
-        filterChainDefinitionMap.put("/user/**", "jwt");
-        filterChainDefinitionMap.put("/field/**", "jwt");
-        filterChainDefinitionMap.put("/fieldUse/**", "jwt");
-        filterChainDefinitionMap.put("/equipment/**", "jwt");
-        filterChainDefinitionMap.put("/equipmentRentInfo/**", "jwt");
-        filterChainDefinitionMap.put("/conttest/**", "jwt");
+//        filterChainDefinitionMap.put("/user/**", "jwt");
+//        filterChainDefinitionMap.put("/field/**", "jwt");
+//        filterChainDefinitionMap.put("/fieldUse/**", "jwt");
+//        filterChainDefinitionMap.put("/equipment/**", "jwt");
+//        filterChainDefinitionMap.put("/equipmentRentInfo/**", "jwt");
+//        filterChainDefinitionMap.put("/conttest/**", "jwt");
 
         // 其余接口一律拦截
 //         filterChainDefinitionMap.put("/**", "authc");

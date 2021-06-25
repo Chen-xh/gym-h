@@ -24,7 +24,7 @@ public class Contest {
     //1:刚创建，未复核
     //2:管理员复核
     private int target;
-
+    private Long jid;
 
     @Override
     public String toString() {
@@ -40,6 +40,14 @@ public class Contest {
                 ", equipment=" + equipment +
                 ", target=" + target +
                 '}';
+    }
+
+    public Long getJid() {
+        return jid;
+    }
+
+    public void setJid(Long jid) {
+        this.jid = jid;
     }
 
     public Date getOpenTime() {

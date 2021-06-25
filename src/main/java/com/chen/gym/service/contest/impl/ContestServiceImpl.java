@@ -95,6 +95,11 @@ public class ContestServiceImpl implements ContestService {
     }
 
     @Override
+    public void arrayJudgment(Long id, Long jid) {
+        contestDao.updateJudgment(jid,id);
+    }
+
+    @Override
     public void add(Contest contest) {
         contest.setDate(new Date());
         contestDao.add(contest);

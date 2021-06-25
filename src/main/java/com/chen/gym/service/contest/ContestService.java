@@ -34,6 +34,10 @@ public interface ContestService {
      */
     void arrayField(Long id,Long fid);
     /**
+     * 安排裁判
+     */
+    void arrayJudgment(Long id,Long jid);
+    /**
      * 添加
      */
     void add(Contest contest);

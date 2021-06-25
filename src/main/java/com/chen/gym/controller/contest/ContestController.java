@@ -75,7 +75,18 @@ public class ContestController {
         return JsonResult.success();
 
     }
+    @ApiOperation(value = "安排裁判")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "cid", value = "赛事id", required = true, paramType = "query", dataType = "String"),
+            @ApiImplicitParam(name = "jid", value = "裁判id", required = true, paramType = "query", dataType = "String"),
+    })
+    @GetMapping("arrayJudgment")
+    public JsonResult arrayJudgment(Long cid, Long jid) {
+        contestService.arrayJudgment(cid, jid);
 
+        return JsonResult.success();
+
+    }
     @ApiOperation(value = "安排场地")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "cid", value = "赛事id", required = true, paramType = "query", dataType = "String"),

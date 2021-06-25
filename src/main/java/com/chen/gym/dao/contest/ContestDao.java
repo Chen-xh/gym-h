@@ -25,6 +25,7 @@ public interface ContestDao {
             "#{place} , #{equipment}, 1)")
     void add(Contest contest);
 
+
     @Delete("DELETE FROM `contest` WHERE cid=#{id}")
     void delete(Long id);
 
@@ -45,6 +46,9 @@ public interface ContestDao {
     }
     @Update("UPDATE `contest` SET target=#{target} WHERE cid=#{cid}")
     void updateTarget(int target ,Long cid);
+
+    @Update("UPDATE `contest` SET jid=#{jid} WHERE cid=#{cid}")
+    void updateJudgment(Long jid ,Long cid);
 
     @Update("UPDATE `contest` SET place=#{place}   WHERE cid=#{cid}")
     void updatePlace(Long place ,Long cid);
